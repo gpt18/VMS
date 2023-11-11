@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+#ignore files
+.eslintrc.cjs
+.gitignore
+README.md
+package-lock.json
+tsconfig.node.json
