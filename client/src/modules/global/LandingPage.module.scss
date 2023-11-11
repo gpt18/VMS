@@ -1,0 +1,143 @@
+@import "../../assets/styles/breakpoints";
+
+$light-bg-color: #e2e8ce;
+$highlight-color: rgb(53, 53, 230);
+
+@mixin pb($bottom-padding: 3rem) {
+  padding-bottom: $bottom-padding;
+}
+
+@mixin section-spacing {
+  padding-top: 70px;
+  padding-bottom: 70px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.hero {
+  @include section-spacing;
+  padding-top: 140px;
+  background-color: $light-bg-color;
+  text-align: center;
+  overflow: hidden;
+
+  h1 {
+    padding: 0px;
+    margin: 0px;
+    font-size: 3rem;
+    font-weight: 600;
+    align-self: center;
+  }
+
+  .img__container {
+    text-align: center;
+  }
+
+  img {
+    max-width: 100%;
+    height: max-content;
+  }
+
+  .button__container {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+
+    .btn {
+      width: 100%;
+      font-size: larger;
+      text-align: start;
+      padding: 0.75rem;
+
+      span {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}
+
+.services {
+  @include section-spacing;
+
+  & .subtitle {
+    padding: 0 2rem;
+    text-align: center;
+    color: grey;
+    @include pb;
+  }
+
+  .services_layer {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 1rem;
+    
+    place-items: center;
+
+    .service__card{
+        text-align: center;
+        
+        .icon{
+            height: 70px;
+            width: 70px;
+            padding: .5rem;
+            border-radius: var(--border-radius);
+            background-color: $light-bg-color;
+            margin: auto;
+            margin-bottom: .5rem;
+            color: $highlight-color;
+            font-size: 2rem;
+        }
+        .card__heading{
+          font-weight: bold;
+        }
+        .car__body{
+            padding: 1rem 3rem;
+        }
+    }
+  }
+}
+
+.about{
+  @include section-spacing;
+  text-align: center;
+
+  ul{
+    padding-top: 1rem;
+    li{
+      text-align: start
+    }
+  }
+
+}
+
+.highlight {
+  color: $highlight-color;
+}
+
+.heading {
+  font-size: 2rem;
+  text-align: center;
+  font-weight: 600;
+  padding-bottom: 3rem;
+}
+
+@include media-breakpoint-up(lg) {
+  .hero {
+    text-align: start;
+
+    h1 {
+      font-size: 3rem;
+    }
+
+    img {
+      height: 20rem;
+    }
+  }
+}
+
+@include media-breakpoint-down(md){
+    
+    
+}
