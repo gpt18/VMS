@@ -1,0 +1,29 @@
+// --------- varirable
+$btn-color: black;
+$btn-t-color: white;
+
+// ------- mixin
+@mixin reset{
+    padding: 0;
+    margin: 0;
+}
+
+// --------- main Layout
+
+#main_layout {
+    .test{
+        color: red;
+
+        p{
+            @include reset();
+            color: blue;
+            font-size: smaller;
+        }
+    }
+    &:global{
+        .btn{
+            background-color: $btn-color;
+            color: $btn-t-color;
+        }
+    }
+}

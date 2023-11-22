@@ -1,10 +1,11 @@
 
-import { strings } from '../../utils/costants';
-import styles from './LandingPage.module.scss'
+import { strings, url } from '../../utils/costants';
+import styles from './pages_styles.module.scss'
 import { BsArrowRight, BsFillCalendarEventFill } from 'react-icons/bs'
 import { FaPeopleCarryBox } from 'react-icons/fa6';
 import { RiTeamFill, RiGlobalLine } from 'react-icons/ri'
 import imageGroup from "../../assets/img/group.png";
+import { Link } from 'react-router-dom';
 
 export default function LandingPage() {
   return (
@@ -25,8 +26,10 @@ export default function LandingPage() {
               </div>
               <div className={styles.button__container}>
                 <button className={`btn btn-secondary ${styles.btn}`}>
+                  <Link to={url.goto.ngo_admin_dashboard}>
                   <span>For NGO</span>
                   <BsArrowRight />
+                  </Link>
                 </button>
                 <button className={`btn btn-primary ${styles.btn}`}>
                   <span>For Volunteer</span>

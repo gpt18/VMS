@@ -29,7 +29,7 @@ const Header = (props: HeaderProps) => {
                         {props.menu.map((item, index) => {
                             return <NavLink to={item.link} className={`clickable ${styles.navLink}`} key={index}> {item.tag} </NavLink>
                         })}
-                        <button className="btn btn-primary">Login <BsBoxArrowUpRight /></button>
+                        <Link to={"/login"}><button className="btn btn-primary">Login <BsBoxArrowUpRight /></button></Link>
                     </nav>
 
                     <div className={`d-md-none clickable ${styles.menu}`} >
