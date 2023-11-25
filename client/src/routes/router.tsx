@@ -4,6 +4,8 @@ import MainLayout from "../layouts/MainLayout.js";
 import NotFound from '../components/NotFound/NotFound.js'
 import Login from "../modules/global/Login.js";
 import { AdminLayout } from "../layouts/AdminLayout.js";
+import { DashboardPage } from "../modules/admin/DashboardPage.js";
+import { VolunteerPage } from "../modules/admin/VolunteerPage.js";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +28,17 @@ const router = createBrowserRouter([
   },
   {
     path: "/ngo",
-    element: <AdminLayout/>
+    element: <AdminLayout/>,
+    children: [
+      {
+        path: "",
+        element: <DashboardPage />
+      },
+      {
+        path: "vol",
+        element: <VolunteerPage />
+      },
+    ]
   },
   {
     path: "*",
