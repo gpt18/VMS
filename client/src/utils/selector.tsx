@@ -1,4 +1,4 @@
-import { BsArchive, BsCalendar3, BsCreditCard2Front, BsPeople, BsPlusLg, BsSearch } from "react-icons/bs";
+import { BsArchive, BsArrowRight, BsCalendar3, BsCreditCard2Front, BsPeople, BsPlusLg, BsSearch } from "react-icons/bs";
 import { FiGitPullRequest, FiHome, FiLogOut, FiUser } from "react-icons/fi";
 import { IoClose, IoMenu } from "react-icons/io5";
 import { RxDashboard } from "react-icons/rx";
@@ -25,6 +25,7 @@ export const IconSelector = {
         search: BsSearch,
         add: BsPlusLg,
         close: IoClose,
+        arrowRight: BsArrowRight,
     }
 
 

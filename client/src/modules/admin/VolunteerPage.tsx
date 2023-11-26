@@ -123,18 +123,18 @@ type VolCardProps = {
 
 function VolCard({ name, id, zone, gender }: VolCardProps) {
     return (
-        <div className=" w-full lg:max-w-full lg:flex bg-white shadow-lg rounded-lg overflow-hidden">
-            <img src={gender == "male" ? photoFor.male : photoFor.female} alt={gender} className="h-48 w-full lg:h-auto lg:w-48 flex-none bg-cover object-cover" />
-            <div className="p-4 flex flex-col justify-between">
-                <div className="text-gray-900 font-bold text-xl mb-2">{name}</div>
-                <div className="text-gray-600 text-sm mb-2">#{id}</div>
-                <div className="text-gray-700 text-base mb-2">Volunteer</div>
-                <div className="text-gray-500 text-sm mb-2">{zone}</div>
-                <div className="flex items-center gap-2 font-bold">
-                    <Button variant={"contained"}>Contact1</Button>
-                    <Button variant={"gray"}>Contact1</Button>
-                </div>
+        <div className="w-full flex bg-white shadow-lg rounded-lg overflow-hidden p-4 gap-4 items-center">
+            <img src={gender == "male" ? photoFor.male : photoFor.female} alt={gender} className="rounded-full w-12 h-12 bg-cover object-cover" />
+            <div className="flex flex-col grow">
+            <div className="text-gray-600 text-xs">#{id}</div>
+            <div className="text-gray-900 font-bold">{name}</div>
+            
+            <div className="flex gap-2">
+            <div className="text-gray-700 text-xs">Volunteer</div>
+            <div className="text-gray-500 text-xs">Zone: {zone}</div>
             </div>
+            </div>
+            <Button variant={"chip"} size={"small-chip"} endIcon={<IconSelector.all.arrowRight/>}>View</Button>
         </div>
     );
 }
