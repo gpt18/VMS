@@ -17,6 +17,12 @@ export default {
           dark: colors.neutral[800],
           ["dark-hover"]: colors.neutral[900],
         },
+        primary: {
+          DEFAULT: colors.blue[500],
+          hover: colors.blue[50],
+          ["dark-hover"]: colors.blue[700]
+          
+        }
       }
     },
   },

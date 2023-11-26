@@ -24,7 +24,7 @@ export function SideBar() {
             {isSmallOpen && (
                 <div onClick={close} className="lg:hidden fixed inset-0 z-[999] bg-secondary-dark opacity-50" />
             )}
-            <aside className={`w-56 lg:sticky absolute top-0 overflow-y-auto scrollbar-hidden pb-4 flex-col gap-2 px-2 ${isLargeOpen ? "lg:flex" : "lg:hidden"} ${isSmallOpen ? "flex z-[999] bg-white h-full" : "hidden"}`}>
+            <aside className={`w-56 lg:sticky absolute top-0 overflow-y-auto scrollbar-hidden pb-4 flex-col gap-2 px-2 ${isLargeOpen ? "lg:flex" : "lg:hidden"} ${isSmallOpen ? "flex z-[999] bg-white h-screen" : "hidden"}`}>
                 <div className="lg:hidden pt-2 pb-4 px-2 sticky top-0 bg-white">
                     <PageHeaderFirstSection />
                 </div>
@@ -90,7 +90,9 @@ type LargeSidebarItemProps = {
 }
 
 function LargeSidebarItem({ Icon, title, url, isActive = false }: LargeSidebarItemProps) {
-    return <Link to={url} className={twMerge(buttonStyles({ variant: "ghost" }), `w-full flex items-center rounded-lg gap-4 p-3 ${isActive ? "font-bold bg-neutral-100 hover:bg-secondary my-2 border-r-4 border-slate-600" : "undefined"}`)}>
+    const { onlySmallClose } = useSidebarContext();
+
+    return <Link to={url} className={twMerge(buttonStyles({ variant: "ghost" }), `w-full flex items-center rounded-lg gap-4 p-3 ${isActive ? "font-bold bg-neutral-100 hover:bg-secondary my-2 border-r-4 border-slate-600" : "undefined"}`)} onClick={onlySmallClose}>
         <Icon className="w-5 h-5" />
         <div className="whitespace-nowrap overflow-hidden text-md text-ellipsis"> {title} </div>
     </Link>

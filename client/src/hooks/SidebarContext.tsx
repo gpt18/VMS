@@ -15,6 +15,7 @@ import {
     isSmallOpen: boolean
     toggle: () => void
     close: () => void
+    onlySmallClose: () => void
   }
   
   const SidebarContext = createContext<SidebarContextType | null>(null)
@@ -61,6 +62,12 @@ import {
         setIsLargeOpen(false)
       }
     }
+
+    function onlySmallClose() {
+      if (isScreenSmall()) {
+        setIsSmallOpen(false)
+      }
+    }
   
     return (
       <SidebarContext.Provider
@@ -69,6 +76,7 @@ import {
           isSmallOpen,
           toggle,
           close,
+          onlySmallClose,
         }}
       >
         {children}

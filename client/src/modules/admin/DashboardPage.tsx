@@ -6,7 +6,7 @@ import { IconSelector } from '../../utils/selector';
 export function DashboardPage() {
     return (
         <>
-            <div className="container mx-auto">
+            <div className="container mx-auto sm:px-8 px-4 pb-4">
                 <HeroSection />
                 <div className='text-xl my-6 p-4 font-bold'>
                     Overview
@@ -61,7 +61,7 @@ function CardInsight({ Icon, title, count }: CardInsightProps) {
                 <Icon />
                 <div className=''>{title}</div>
             </div>
-            <div className='text-4xl font-bold pl-4'>
+            <div className='text-4xl font-bold'>
                 {count}
             </div>
         </div>

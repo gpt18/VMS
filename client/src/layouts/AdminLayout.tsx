@@ -15,7 +15,7 @@ export function AdminLayout() {
                 <PageHeader />
                 <div className="sm:grid sm:grid-cols-[auto,1fr] sm:flex-grow-1 overflow-auto">
                     <SideBar />
-                    <div className="overflow-x-hidden px-8 pb-4">
+                    <div className="overflow-x-hidden">
                         <Outlet/>
                     </div>
                 </div>
