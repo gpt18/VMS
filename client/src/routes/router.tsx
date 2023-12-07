@@ -6,6 +6,7 @@ import Login from "../modules/global/Login.js";
 import { AdminLayout } from "../layouts/AdminLayout.js";
 import { DashboardPage } from "../modules/admin/DashboardPage.js";
 import { VolunteerPage } from "../modules/admin/VolunteerPage.js";
+import { EventPage } from "../modules/admin/EventPage.js";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "vol",
         element: <VolunteerPage />
+      },
+      {
+        path: "event",
+        element: <EventPage />
       },
     ]
   },

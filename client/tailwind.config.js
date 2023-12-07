@@ -18,9 +18,10 @@ export default {
           ["dark-hover"]: colors.neutral[900],
         },
         primary: {
-          DEFAULT: colors.blue[500],
+          DEFAULT: colors.blue[700],
           hover: colors.blue[50],
-          ["dark-hover"]: colors.blue[700]
+          dark: colors.blue[600],
+          ["dark-hover"]: colors.blue[800]
           
         }
       }

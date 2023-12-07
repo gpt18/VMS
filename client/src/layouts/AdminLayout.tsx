@@ -7,8 +7,6 @@ import { DashboardPage } from "../modules/admin/DashboardPage";
 
 export function AdminLayout() {
 
-    const org = "SDRK Manavadhikar Foundation";
-
     return (
         <SidebarProvider>
             <div className="max-h-screen flex flex-col">

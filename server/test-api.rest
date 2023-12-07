@@ -1,0 +1,28 @@
+GET http://localhost:3020/api
+
+###
+
+GET http://localhost:3020/api/6571c0b425a0f5df0379d304
+
+###
+
+POST http://localhost:3020/api
+Content-Type: application/json
+
+{
+    "name": "volunteer old 1",
+    "joinedNgo": "joined ngo 2"
+}
+
+###
+
+DELETE http://localhost:3020/api/6571c0b425a0f5df0379d304
+
+###
+
+PATCH http://localhost:3020/api/6571d512adf9840dbd8944e9
+Content-Type: application/json
+
+{
+    "name": "volunteer old 123"
+}

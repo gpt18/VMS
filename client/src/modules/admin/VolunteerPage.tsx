@@ -1,77 +1,74 @@
+import { useRef, useState } from "react";
 import { Button } from "../../components/Button";
 import { IconSelector } from "../../utils/selector";
+import { TextField } from "../../components/TextField";
 
-const users = [
+const usersData = [
     {
-        id: 23001,
+        id: "23001",
         name: "John Simon",
         photo: "",
         zone: "khora",
-        gender: "male"
+        gender: "male",
+        role: "volunteer"
     },
     {
-        id: 23002,
+        id: "23002",
         name: "Riya Sharma",
         photo: "",
         zone: "noida",
-        gender: "female"
+        gender: "female",
+        role: "volunteer"
     },
     {
-        id: 23003,
-        name: "Mohammed Ali",
+        id: "23001",
+        name: "John Simon",
         photo: "",
-        zone: "delhi",
-        gender: "male"
+        zone: "khora",
+        gender: "male",
+        role: "volunteer"
     },
     {
-        id: 23004,
-        name: "Lisa Chen",
+        id: "23002",
+        name: "Riya Sharma",
         photo: "",
-        zone: "gurgaon",
-        gender: "female"
+        zone: "noida",
+        gender: "female",
+        role: "volunteer"
     },
     {
-        id: 23005,
-        name: "Rajesh Kumar",
+        id: "23001",
+        name: "John Simon",
         photo: "",
-        zone: "faridabad",
-        gender: "male"
+        zone: "khora",
+        gender: "male",
+        role: "volunteer"
     },
     {
-        id: 23006,
-        name: "Maria Garcia",
+        id: "23002",
+        name: "Riya Sharma",
         photo: "",
-        zone: "ghaziabad",
-        gender: "female"
+        zone: "noida",
+        gender: "female",
+        role: "volunteer"
     },
     {
-        id: 23007,
-        name: "Kevin Smith",
+        id: "23001",
+        name: "John Simon",
         photo: "",
-        zone: "meerut",
-        gender: "male"
+        zone: "khora",
+        gender: "male",
+        role: "volunteer"
     },
     {
-        id: 23008,
-        name: "Aisha Khan",
+        id: "23002",
+        name: "Riya Sharma",
         photo: "",
-        zone: "agra",
-        gender: "female"
+        zone: "noida",
+        gender: "female",
+        role: "volunteer"
     },
-    {
-        id: 23009,
-        name: "David Lee",
-        photo: "",
-        zone: "jaipur",
-        gender: "male"
-    },
-    {
-        id: 23010,
-        name: "Priya Patel",
-        photo: "",
-        zone: "lucknow",
-        gender: "female"
-    }
+
 ];
 
 
@@ -80,42 +77,124 @@ const photoFor = {
     female: "https://i.pinimg.com/236x/54/6b/2d/546b2d4e9bddbcb894fa8e416739339b.jpg"
 }
 
+interface UserType {
+    id: string,
+    name: string,
+    photo: string,
+    zone: string,
+    gender: string,
+    role: string,
+}
+
 export function VolunteerPage() {
+
+    const [users, setUsers] = useState<UserType[]>([...usersData]);
+
+    const [newUser, setNewUser] = useState<UserType>({
+        id: '123',
+        name: '',
+        role: 'volunteer',
+        gender: 'male',
+        zone: '',
+        photo: '',
+    });
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+
+        setNewUser((prev) => ({ ...prev, [name]: value }));
+
+    };
+
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+
+        setUsers((prev) => ([...prev, newUser]));
+
+        setNewUser({
+            ...newUser,
+            name: "",
+            zone: "",
+        })
+
+    }
+
+
     return (
         <>
-            <div className="container mx-auto sm:px-8 px-4 pb-4">
-                <div className="grid md:grid-cols-3">
-                    <div className="col-span-2">
-                        <div className="flex p-4">
-                            <input typeof="search" placeholder="Search Volunteer" className="grow md:grow-0 border-b-2 hover:border-indigo-600 mr-4"></input>
-                            <Button variant={"default"} size={"icon"} ><IconSelector.all.search /></Button>
-                        </div>
-                        <div className=" p-4 mt-2">
-                            <div className="flex justify-between items-center mb-6">
-                                <div className="text-2xl flex gap-3 items-center">
-                                    <IconSelector.menuIcon.volunteer />Volunteer
-                                </div>
-                                <Button className="font-bold" variant={"contained"} startIcon={<IconSelector.all.add />}>Add</Button>
-                            </div>
+            <div className="container mx-auto grid md:grid-cols-2">
 
-                            <div className="flex flex-col gap-4">
-                                {users.map(user => <VolCard key={user.id} id={user.id} name={user.name} gender={user.gender} zone={user.zone} />)}
+                <div className="col-span-1 mx-4 pb-4">
+
+                    <div className="">
+                        <div className="flex justify-between items-center mb-6">
+                            <div className="text-lg flex gap-3 items-center">
+                                <IconSelector.menuIcon.volunteer />
+                                <div className=" font-bold">
+                                    Volunteer
+                                    <div className="text-xs font-normal text-gray-500">Count: {users.length} </div>
+                                </div>
                             </div>
+                            <Button variant={"contained"} startIcon={<IconSelector.all.add />}>Add</Button>
+                        </div>
+
+                        <SearchInput />
+
+
+                        <div className="mt-6 space-y-3">
+                            {users.map((user, index) => <VolCard key={index} id={user.id} name={user.name} gender={user.gender} zone={user.zone} />)}
                         </div>
                     </div>
-                    <div className="px-4">
-                        <div className="text-xl my-6 p-4 font-bold rounded shadow sticky top-4">
-                            Details
+
+
+                </div>
+                <div className="px-4 pb-4">
+                    <div className="max-w-md rounded-lg p-4 shadow-md border border-gray-300 sticky top-0">
+                        <div className="font-bold text-lg mb-4">
+                            Add New Volunteer
                         </div>
+
+                        {/* -------- add volunteer form -------- */}
+                        <form onSubmit={handleSubmit} className="space-y-6">
+
+                            <TextField placeholder="Full Name" name="name" value={newUser.name} type="text" id="name" onChange={handleChange} required />
+
+                            <TextField placeholder="Zone" name="zone" value={newUser.zone} type="text" id="zone" onChange={handleChange} required />
+
+                            <div className="mt-10 flex gap-5 justify-center items-center">
+                                <Button variant={"gray"} startIcon={<IconSelector.all.reset />}>Reset</Button>
+                                <Button variant={"contained"} type="submit" className="grow">Add</Button>
+                            </div>
+                        </form>
                     </div>
                 </div>
+
             </div>
         </>
     );
 }
 
+function SearchInput() {
+    return (
+        <>
+
+            <form>
+                <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only ">Search</label>
+                <div className="relative">
+                    <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <IconSelector.all.search className="w-4 h-4 text-gray-500 " />
+                    </div>
+                    <input type="search" id="default-search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 " placeholder="Search volunteer..." required />
+                    <Button variant={"contained"} type="submit" className="absolute end-2.5 bottom-2.5">Search</Button>
+                </div>
+            </form>
+
+        </>
+    );
+}
+
 type VolCardProps = {
-    id: number,
+    id: string,
     name: string,
     zone: string,
     gender: string
@@ -123,18 +202,18 @@ type VolCardProps = {
 
 function VolCard({ name, id, zone, gender }: VolCardProps) {
     return (
-        <div className="w-full flex bg-white shadow-lg rounded-lg overflow-hidden p-4 gap-4 items-center">
+        <div className="flex-shrink-0 min-w-fit group/item hover:bg-neutral-100 w-full flex bg-white rounded-lg overflow-hidden p-4 gap-4 items-center ring-1 ring-gray-950/10">
             <img src={gender == "male" ? photoFor.male : photoFor.female} alt={gender} className="rounded-full w-12 h-12 bg-cover object-cover" />
             <div className="flex flex-col grow">
-            <div className="text-gray-600 text-xs">#{id}</div>
-            <div className="text-gray-900 font-bold">{name}</div>
-            
-            <div className="flex gap-2">
-            <div className="text-gray-700 text-xs">Volunteer</div>
-            <div className="text-gray-500 text-xs">Zone: {zone}</div>
+                <div className="text-gray-600 text-xs">#{id}</div>
+                <div className="text-gray-900 font-bold">{name}</div>
+
+                <div className="flex gap-2">
+                    <div className="text-gray-700 text-xs">Volunteer</div>
+                    <div className="text-gray-500 text-xs">Zone: {zone}</div>
+                </div>
             </div>
-            </div>
-            <Button variant={"chip"} size={"small-chip"} endIcon={<IconSelector.all.arrowRight/>}>View</Button>
+            <Button className="group/view invisible group-hover/item:visible" variant={"chip"} size={"small-chip"} endIcon={<IconSelector.all.arrowRight />}>View</Button>
         </div>
     );
 }
