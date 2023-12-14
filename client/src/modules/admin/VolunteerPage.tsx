@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Button } from "../../components/Button";
 import { IconSelector } from "../../utils/selector";
 import { TextField } from "../../components/TextField";
@@ -119,6 +119,16 @@ export function VolunteerPage() {
 
     }
 
+    function handleReset (e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+
+        setNewUser({
+            ...newUser,
+            name: "",
+            zone: "",
+        })
+    }
+      
 
     return (
         <>
@@ -141,7 +151,7 @@ export function VolunteerPage() {
                         <SearchInput />
 
 
-                        <div className="mt-6 space-y-3">
+                        <div className="mt-6 space-y-3 pb-80">
                             {users.map((user, index) => <VolCard key={index} id={user.id} name={user.name} gender={user.gender} zone={user.zone} />)}
                         </div>
                     </div>
@@ -162,7 +172,7 @@ export function VolunteerPage() {
                             <TextField placeholder="Zone" name="zone" value={newUser.zone} type="text" id="zone" onChange={handleChange} required />
 
                             <div className="mt-10 flex gap-5 justify-center items-center">
-                                <Button variant={"gray"} startIcon={<IconSelector.all.reset />}>Reset</Button>
+                                <Button type="reset" variant={"gray"} startIcon={<IconSelector.all.reset />} onClick={handleReset}>Reset</Button>
                                 <Button variant={"contained"} type="submit" className="grow">Add</Button>
                             </div>
                         </form>

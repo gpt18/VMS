@@ -26,3 +26,36 @@ Content-Type: application/json
 {
     "name": "volunteer old 123"
 }
+
+###
+
+POST https://358qrp7mak.execute-api.us-east-1.amazonaws.com/student/home/eligible/register/2200910140020
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cm4iOiIyMjAwOTEwMTQwMDIwIiwicm9sZSI6InN0dWRlbnQiLCJleHAiOjE3MDIxMjIxNTl9.fde68arJrz9R6Ljd3fuZfjerbI7VnpWDTWtZJpwMw_Q
+
+{
+    "urn": "2200910140020",
+    "college_id": 3,
+    "person": "student",
+    "token_type": "bearer",
+    "access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cm4iOiIyMjAwOTEwMTQwMDIwIiwicm9sZSI6InN0dWRlbnQiLCJleHAiOjE3MDIxNTQ1MzJ9.AO3s_7Td8CBU20lvXWxzn7q3WJeudqkKQlyL2ylMiAQ"
+}
+
+###
+
+
+OPTIONS https://358qrp7mak.execute-api.us-east-1.amazonaws.com/student/home/eligible/register/2200910140020
+
+
+###
+
+POST https://central.sjceplacements.org/cdn-cgi/challenge-platform/h/b/jsd/r/832c4dffb93c65de
+Content-Type: text/plain
+
+
+###
+
+POST https://358qrp7mak.execute-api.us-east-1.amazonaws.com/student/login
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=&username=2200910140020&password=Placement@JSS18%&scope=&client_id=&client_secret=
