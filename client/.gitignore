@@ -29,3 +29,4 @@ dist-ssr
 README.md
 package-lock.json
 tsconfig.node.json
+.rest
