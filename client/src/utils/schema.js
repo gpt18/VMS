@@ -60,7 +60,12 @@ volunteers = {
         gender,
         phone,
         email,
-        address,
+        address: {
+            locality,
+            city,
+            state,
+            pincode
+        },
         experience: [],
         photo,
         aadhar: {

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "../../components/Button";
 import { IconSelector } from "../../utils/selector";
 import { TextField } from "../../components/TextField";
+import { Link } from "react-router-dom";
 
 const usersData = [
     {
@@ -119,7 +120,7 @@ export function VolunteerPage() {
 
     }
 
-    function handleReset (e: React.FormEvent<HTMLFormElement>) {
+    function handleReset(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
         setNewUser({
@@ -128,56 +129,64 @@ export function VolunteerPage() {
             zone: "",
         })
     }
-      
+
 
     return (
         <>
-            <div className="container mx-auto grid md:grid-cols-2">
+            <div className="container mx-auto pb-80">
 
-                <div className="col-span-1 mx-4 pb-4">
-
-                    <div className="">
-                        <div className="flex justify-between items-center mb-6">
-                            <div className="text-lg flex gap-3 items-center">
-                                <IconSelector.menuIcon.volunteer />
-                                <div className=" font-bold">
-                                    Volunteer
-                                    <div className="text-xs font-normal text-gray-500">Count: {users.length} </div>
-                                </div>
+                <div className="mx-4 md:mx-14 pb-4">
+                    <div className="flex justify-between items-center mb-6">
+                        <div className="text-3xl sm:text-5xl flex gap-3 items-center">
+                            <IconSelector.menuIcon.volunteer />
+                            <div>
+                                Volunteer
                             </div>
-                            <Button variant={"contained"} startIcon={<IconSelector.all.add />}>Add</Button>
                         </div>
 
-                        <SearchInput />
+                    </div>
 
+                    <div className="md:flex justify-between">
+                        <div className="md:w-3/6">
+                            <SearchInput />
+                        </div>
+                        <div className="my-3 md:m-0 self-center">
+                            <Link to={"../vol/new"}><Button variant={"contained"} startIcon={<IconSelector.all.add />}>Add</Button></Link>
+                        </div>
+                    </div>
 
-                        <div className="mt-6 space-y-3 pb-80">
+                    <div className="mt-6 relative rounded-md border bg-slate-50">
+                        <div className="flex justify-between gap-2 p-4 bg-slate-800 text-white rounded-t-md sticky top-0 overflow-x-auto whitespace-nowrap scrollbar-hide">
+                            <div className="px-3">
+                                Slno
+                            </div>
+                            <div className="px-3">
+                                Volunteer
+                            </div>
+                            <div className="px-3">
+                                Zone
+                            </div>
+                            <div className="px-3">
+                                Email
+                            </div>
+                            <div className="px-3">
+                                Phone
+                            </div>
+                            <div className="px-3">
+                                Address
+                            </div>
+                            <div className="px-3">
+                                Action
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col p-4 space-y-3 overflow-x-auto whitespace-nowrap scrollbar-hide">
                             {users.map((user, index) => <VolCard key={index} id={user.id} name={user.name} gender={user.gender} zone={user.zone} />)}
                         </div>
                     </div>
 
-
                 </div>
-                <div className="px-4 pb-4">
-                    <div className="max-w-md rounded-lg p-4 shadow-md border border-gray-300 sticky top-0">
-                        <div className="font-bold text-lg mb-4">
-                            Add New Volunteer
-                        </div>
 
-                        {/* -------- add volunteer form -------- */}
-                        <form onSubmit={handleSubmit} className="space-y-6">
-
-                            <TextField placeholder="Full Name" name="name" value={newUser.name} type="text" id="name" onChange={handleChange} required />
-
-                            <TextField placeholder="Zone" name="zone" value={newUser.zone} type="text" id="zone" onChange={handleChange} required />
-
-                            <div className="mt-10 flex gap-5 justify-center items-center">
-                                <Button type="reset" variant={"gray"} startIcon={<IconSelector.all.reset />} onClick={handleReset}>Reset</Button>
-                                <Button variant={"contained"} type="submit" className="grow">Add</Button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
 
             </div>
         </>
@@ -212,18 +221,29 @@ type VolCardProps = {
 
 function VolCard({ name, id, zone, gender }: VolCardProps) {
     return (
-        <div className="flex-shrink-0 min-w-fit group/item hover:bg-neutral-100 w-full flex bg-white rounded-lg overflow-hidden p-4 gap-4 items-center ring-1 ring-gray-950/10">
-            <img src={gender == "male" ? photoFor.male : photoFor.female} alt={gender} className="rounded-full w-12 h-12 bg-cover object-cover" />
-            <div className="flex flex-col grow">
-                <div className="text-gray-600 text-xs">#{id}</div>
-                <div className="text-gray-900 font-bold">{name}</div>
+        <div className="flex min-w-fit justify-between gap-2 p-4 rounded-lg group/item hover:bg-neutral-100 bg-white items-center ring-1 ring-gray-950/10">
+            <div className="px-3">
+                1
+            </div>
 
-                <div className="flex gap-2">
-                    <div className="text-gray-700 text-xs">Volunteer</div>
-                    <div className="text-gray-500 text-xs">Zone: {zone}</div>
+            <div className="flex gap-2 rounded-lg bg-indigo-50 py-2 px-4 flex-shrink-0 cursor-pointer">
+                <img src={gender == "male" ? photoFor.male : photoFor.female} alt={gender} className="rounded-full w-12 h-12 bg-cover object-cover" />
+                <div className="flex flex-col grow">
+                    <div className="text-gray-600 text-xs">#{id}</div>
+                    <div className="text-gray-900 font-bold">{name}</div>
+
                 </div>
             </div>
-            <Button className="group/view invisible group-hover/item:visible" variant={"chip"} size={"small-chip"} endIcon={<IconSelector.all.arrowRight />}>View</Button>
+
+            <div className="px-3">{zone}</div>
+            <div className="px-3">abc@gmail.com</div>
+            <div className="px-3">9354768011</div>
+            <div className="px-3">
+                <div className="text-xs text-gray-400">khora colony</div>
+                <div className="text-sm">Ghaziabad UP</div>
+            </div>
+
+            <Button className="group/view invisible group-hover/item:visible" variant={"chip"} size={"small-chip"} endIcon={<IconSelector.all.arrowRight />}>Edit</Button>
         </div>
     );
 }
