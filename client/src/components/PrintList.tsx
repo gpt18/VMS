@@ -4,11 +4,16 @@ import { BsPrinter } from "react-icons/bs";
 import { TextField } from "./TextField";
 import { RiPlayListAddLine } from "react-icons/ri";
 import { RiContactsLine } from "react-icons/ri";
-import { RiCalendar2Line } from "react-icons/ri";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 
 export default function PrintList() {
+
+    const productNameRef = React.useRef(null);
+    const qtyRef = React.useRef(null);
+    const sizeRef = React.useRef(null);
+    const remarkRef = React.useRef(null);
+
     const [productList, setProductList] = useState([{
         qty: "",
         productName: "",
@@ -16,65 +21,62 @@ export default function PrintList() {
         remark: "",
     }]);
 
+    const [count, setCount] = useState(1);
+    const today = new Date().toLocaleDateString();
     const [clientDetail, setClientDetail] = useState({
-        listNo: "",
+        listNo: generateUniqueId(count),
         clientName: "",
-        date: "",
+        date: today,
     });
 
-    const [clientName, setClientName] = useState("");
-    const [date, setDate] = useState("");
-    const [qty, setQty] = useState("");
-    const [productName, setProductName] = useState("");
-    const [size, setSize] = useState("");
-    const [remark, setRemark] = useState("");
-    const [productListCount, setProductListCount] = useState(1);
-    const [listNo, setListNo] = useState(generateUniqueId(productListCount));
-    const [showDateInput, setShowDateInput] = useState(false);
-
-
-    useEffect(() => {
-        setDate(new Date().toLocaleDateString());
-        setClientDetail((prevClientDetail) => ({ ...prevClientDetail, listNo, clientName, date }));
-    }, [clientDetail]);
+    const [newItem, setNewItem] = useState({
+        qty: "",
+        productName: "",
+        size: "",
+        remark: "",
+    });
 
     const handleChangeClient = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setListNo(e.target.value);
-        setClientName(e.target.value);
-        setDate(new Date().toLocaleDateString());
+        setClientDetail((prevClientDetail) => ({ ...prevClientDetail, [e.target.name]: e.target.value }));
     };
 
     const handleChangeItem = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setProductName(e.target.value);
-        setQty(e.target.value);
-        setSize(e.target.value);
-        setRemark(e.target.value);
+        setNewItem((prevNewItem) => ({ ...prevNewItem, [e.target.name]: e.target.value }));
     }
 
-    const handleAddItem = () => {
-        const newItem = {
-            qty,
-            productName,
-            size,
-            remark,
-        };
+    const addItem = () => {
 
-        setProductList((prevProductList) => ({...prevProductList, newItem}));
+            if(newItem.productName === "") {
+                alert("Product Name is required");
+                return;
+            }
+            
 
-        setQty("");
-        setProductName("");
-        setSize("");
-        setRemark("");
+        setProductList((prevProductList) => ([...prevProductList, newItem]));
+
+        setNewItem({
+            qty: "",
+            productName: "",
+            size: "",
+            remark: "",
+        });
+
+        if (productNameRef.current) {
+            const productNameRef = React.useRef<HTMLInputElement>(null);
+            productNameRef.current?.focus();
+        }
+
+
     };
 
-    const handleClear = () => {
-        setQty("");
-        setProductName("");
-        setSize("");
-        setRemark("");
+    const clear = () => {
+        setNewItem({
+            qty: "",
+            productName: "",
+            size: "",
+            remark: "",
+        });
     }
-
-    
 
 
     return (
@@ -82,7 +84,7 @@ export default function PrintList() {
             <div className="w-full bg-gray-200">
                 <div className="container mx-auto">
                     <div className="min-h-screen grid grid-cols-2 justify-items-center">
-                        <div className="w-full p-4 relative">
+                        <div className="p-4 relative">
                             <div className="sticky top-4">
                                 <div className="text-5xl">Product List</div>
                                 <div className="bg-white border rounded-md my-8 px-6 py-4 shadow ">
@@ -91,39 +93,49 @@ export default function PrintList() {
                                     <div className="pt-6 pb-10 space-y-4">
                                         <div className="flex items-center gap-4">
                                             <div>List No:</div>
-                                            <div className="flex-1"><TextField onChange={handleChangeClient} value={listNo} /></div>
-                                            <div>{date}</div>
-                                            <Button variant={"ghost"} size={"icon"}><input type="date" onChange={handleChangeClient}/></Button>
+                                            <div className="flex-1"><TextField onChange={handleChangeClient} value={clientDetail.listNo} name="listNo" /></div>
+                                            <div>{clientDetail.date}</div>
+                                            <Button variant={"ghost"} size={"icon"}><input type="date" onChange={handleChangeClient} name="date" className="p-0 m-0 bg-transparent" /></Button>
                                         </div>
                                         <div className="flex items-center gap-4 ">
                                             <div>To:</div>
-                                            <div className="flex-1"><TextField placeholder={"Client Name"} /></div>
+                                            <div className="flex-1"><TextField placeholder={"Client Name"} value={clientDetail.clientName} name="clientName" onChange={handleChangeClient} /></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="bg-white border rounded-md my-8 px-6 py-4 shadow ">
                                     <div className="flex gap-2 items-center text-xl font-medium"><RiPlayListAddLine />Add Item</div>
 
+                                    <form>
                                     <div className="pt-6 pb-10 space-y-4">
                                         <div className="flex items-center gap-4">
                                             <div>Product Name:</div>
-                                            <div className="flex-1"><TextField placeholder={"Product Name"} value={productName}/></div>
+                                            <div className="flex-1">
+                                            <TextField ref={productNameRef} placeholder={"Product Name"} value={newItem.productName} name="productName" onChange={handleChangeItem} required/>
+                                            </div>
                                         </div>
                                         <div className="flex items-center gap-4">
                                             <div>Quantity:</div>
-                                            <div className="flex-1"><TextField placeholder={"QTY"} value={qty}/></div>
+                                            <div className="flex-1">
+                                            <TextField ref={qtyRef} placeholder={"QTY"} value={newItem.qty} name="qty" onChange={handleChangeItem} />
+                                            </div>
                                             <div>Size:</div>
-                                            <div className="flex-1"><TextField placeholder={"Size"} value={size}/></div>
+                                            <div className="flex-1">
+                                            <TextField ref={sizeRef} placeholder={"Size"} value={newItem.size} name="size" onChange={handleChangeItem} />
+                                            </div>
                                         </div>
                                         <div className="flex items-center gap-4">
                                             <div>Remark:</div>
-                                            <div className="flex-1"><TextField value={remark} placeholder={"Is there anything else left to mark?"} /></div>
+                                            <div className="flex-1">
+                                            <TextField ref={remarkRef} value={newItem.remark} name="remark" placeholder={"Is there anything else left to mark?"} onChange={handleChangeItem} />
+                                            </div>
                                         </div>
 
                                     </div>
+                                    </form>
                                     <div className="flex justify-center gap-4">
-                                        <Button variant={"dark"}>Add</Button>
-                                        <Button variant={"ghost"} onClick={handleClear}>Clear</Button>
+                                        <Button variant={"dark"} onClick={addItem}>Add</Button>
+                                        <Button variant={"ghost"} onClick={clear}>Clear</Button>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +143,7 @@ export default function PrintList() {
                         </div>
                         <div className="">
                             <div className="px-4 py-2 flex justify-end"><Button variant={"dark"} onClick={() => window.open('../print', '_blank', "width=895px, height=1042px")?.print()} startIcon={<BsPrinter />}>Print</Button></div>
-                            <ListPreview clientDetail={clientDetail} productList={productList}/>
+                            <ListPreview clientDetail={clientDetail} productList={productList} />
                         </div>
                     </div>
                 </div>
@@ -258,10 +270,10 @@ export function PrintCurrent({ clientDetail, productList }: PrintCurrentProps) {
         date: "",
     });
 
-    useEffect(() => { 
-        setClientDetails(clientDetail);
-        setProductLists(productList);
-     }, [clientDetail, productList]);
+    // useEffect(() => { 
+    //     setClientDetails(clientDetail);
+    //     setProductLists(productList);
+    //  }, [clientDetail, productList]);
 
 
     return (
@@ -327,8 +339,8 @@ export function ListPreview({ clientDetail, productList }: PrintCurrentProps) {
                     </div>
                     <div className="grid grid-cols-2 border-t border-b p-4">
                         <div>
-                            <div className="text-sm text-gray-500 font-serif">List No. {clientDetail.listNo}</div>
-                            <div>To: <b>C-53, Sector-19</b></div>
+                            <div className="text-sm text-gray-500 font-sans">List No. {clientDetail.listNo}</div>
+                            <div className="break-words">To: <b> {clientDetail.clientName} </b></div>
                         </div>
                         <div className="text-right place-self-end">
                             <div>Date</div>
@@ -350,10 +362,10 @@ export function ListPreview({ clientDetail, productList }: PrintCurrentProps) {
                             </thead>
                             <tbody className="text-center">
                                 {
-                                    product_data.map((item, index) => (
+                                    productList.map((item, index) => (
                                         <tr key={index} className="border-b hover:bg-gray-50">
                                             <td className="px-2 py-1"> {item.qty} </td>
-                                            <td className="px-2 py-1"> {item.product_name} </td>
+                                            <td className="px-2 py-1"> {item.productName} </td>
                                             <td className="px-2 py-1"> {item.size} </td>
                                             <td className="px-2 py-1"> {item.remark} </td>
                                         </tr>
