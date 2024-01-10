@@ -1,51 +1,34 @@
-import { useState, useEffect} from 'react'
+import React from 'react';
+import { TextField } from '../../components/TextField';
 
-export default function Login() {
-  const [data, setData] = useState('');
-  const [selectedText, setSelectedText] = useState('');
-
-  useEffect(() => {
-    fetch('https://www.irctc.co.in/eticketing/trainList') // Replace '/api/textData' with the actual API endpoint URL
-      .then((response) => response.text()) // Parse the response as text
-      .then((textData) => setData(textData))
-      .catch((error) => <div>{error}</div>);
-  }, []);
-
- const regex = /"(.*?)"/g;
-const textArray: string[] = data.match(regex) || [];
-
-textArray.forEach((item, index, array) => {
-  array[index] = item.replace(/"/g, '');
-});
-
-const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  setSelectedText(event.target.value);
-};
-
+const Login: React.FC = () => {
   return (
-    <div>
-      <form>
-  <label htmlFor="firstName">First Name:</label>
-  <input type="text" id="firstName" name="firstName" placeholder="Enter your first name"/>
-
-  <label htmlFor="colorChoice">Select your favorite color:</label>
-  <select id="colorChoice" name="colorChoice">
-    <option value="red">Red</option>
-    <option value="green">Green</option>
-    <option value="blue">Blue</option>
-    <option value="purple">Purple</option>
-  </select>
-
-  <button type="submit">Submit</button>
-</form>
-
-      <select onChange={handleChange} value={selectedText}>
-        {textArray.map((train, index) => {
-          return <option key={index} value={train}>{train}</option>
-          
-        }) }
-      </select>
-      <p>{selectedText}</p>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <div className="max-w-md w-full px-6 py-8 bg-white shadow-md rounded-md">
+        <h2 className="text-2xl font-bold mb-6">Login</h2>
+        <form className="space-y-4" method='post'>
+          <div>
+            <label htmlFor="email" className="block font-medium">
+              Email
+            </label>
+            <TextField type="email" id="email"/>
+          </div>
+          <div>
+            <label htmlFor="password" className="block font-medium">
+              Password
+            </label>
+            <TextField type="password" id="password"/>
+          </div>
+          <button
+            type="submit"
+            className="w-full py-2 px-4 bg-indigo-500 text-white rounded-md hover:bg-indigo-600"
+          >
+            Login
+          </button>
+        </form>
+      </div>
     </div>
   );
-}
+};
+
+export default Login;

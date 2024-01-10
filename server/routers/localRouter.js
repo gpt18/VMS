@@ -4,6 +4,10 @@ const Volunteer = require('../models/volunteer')
 const mongoose = require('mongoose')
 const volunteer = require('../models/volunteer')
 
+router.get('/re', async (req, res) => {
+    res.render('home')
+})
+
 // getting all
 router.get('/', async (req, res) => {
     try {
