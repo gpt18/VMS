@@ -2,14 +2,20 @@ const express = require('express')
 const router = express.Router()
 const Volunteer = require('../models/volunteer')
 const mongoose = require('mongoose')
-const volunteer = require('../models/volunteer')
+const User = require("../models/user")
 
 router.get('/re', async (req, res) => {
-    res.render('home')
+    res.status(200).json({ message: 'Hello World' });
 })
 
 // getting all
 router.get('/', async (req, res) => {
+    // try {
+    //     const volunteers = await User.find()
+    //     res.json(volunteers)
+    // } catch (err) {
+    //     res.status(500).json({ message: err.message })
+    // }
     try {
         const volunteers = await Volunteer.find()
         res.json(volunteers)

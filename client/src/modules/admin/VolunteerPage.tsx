@@ -181,7 +181,7 @@ export function VolunteerPage() {
                         </div>
 
                         <div className="flex flex-col p-4 space-y-3 overflow-x-auto whitespace-nowrap scrollbar-hide">
-                            {users.map((user, index) => <VolCard key={index} id={user.id} name={user.name} gender={user.gender} zone={user.zone} />)}
+                            {users.map((user, index) => <VolCard key={index} index={index} id={user.id} name={user.name} gender={user.gender} zone={user.zone} />)}
                         </div>
                     </div>
 
@@ -216,14 +216,15 @@ type VolCardProps = {
     id: string,
     name: string,
     zone: string,
-    gender: string
+    gender: string,
+    index: number,
 }
 
-function VolCard({ name, id, zone, gender }: VolCardProps) {
+function VolCard({ name, id, zone, gender, index }: VolCardProps) {
     return (
         <div className="flex min-w-fit justify-between gap-2 p-4 rounded-lg group/item hover:bg-neutral-100 bg-white items-center ring-1 ring-gray-950/10">
             <div className="px-3">
-                1
+                {index + 1}
             </div>
 
             <div className="flex gap-2 rounded-lg bg-indigo-50 py-2 px-4 flex-shrink-0 cursor-pointer">

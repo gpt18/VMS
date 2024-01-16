@@ -63,9 +63,8 @@ function MainHeader(props: mainHeaderProps) {
                         <ul>
                             {
                                 props.menu.map((item, index) => {
-                                    return <>
-                                        <li className='p-2 text-center'><Link to={item.link} key={index} className='hover:text-blue-700 font-bold text-2xl'> {item.tag} </Link></li>
-                                    </>
+                                    return <li className='p-2 text-center' key={index} ><Link to={item.link} className='hover:text-blue-700 font-bold text-2xl'> {item.tag} </Link></li>
+                                    
                                 })
                             }
                         </ul>
@@ -74,11 +73,11 @@ function MainHeader(props: mainHeaderProps) {
                                 <Button variant={"dark"} endIcon={<BsBoxArrowUpRight />}>Login</Button>
                             </Link>
                         </div>
-                        <div>
-                        <Link to="/" className='flex gap-2 items-center p-4 flex-1'>
-                        <img id="icon" className='w-10 h-10' src={props.icon} alt="logo" />
-                        <div className="text-lg font-bold"> {appName} </div>
-                    </Link>
+                        <div className='p-4'>
+                            <Link to="/" className='flex gap-2 items-center p-4 flex-1'>
+                                <img id="icon" className='w-10 h-10' src={props.icon} alt="logo" />
+                                <div className="text-lg font-bold"> {appName} </div>
+                            </Link>
                         </div>
                     </div>
                 </div>

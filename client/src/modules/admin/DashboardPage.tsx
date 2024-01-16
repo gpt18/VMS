@@ -2,12 +2,14 @@
 import logo from '../../assets/logo.svg'
 import { ElementType } from 'react';
 import { IconSelector } from '../../utils/selector';
+import { useUserContext } from '../../hooks/UserContext';
 
 export function DashboardPage() {
+    const {uname} = useUserContext();
     return (
         <>
             <div className="container mx-auto sm:px-8 px-4 pb-4">
-                <HeroSection />
+                <HeroSection ngoName = {uname} />
                 <div className='text-xl my-6 p-4 font-bold'>
                     Overview
                 </div>
@@ -21,8 +23,12 @@ export function DashboardPage() {
     );
 }
 
+type HeroSectionProps = {
+    ngoName: string | null
+}
 
-function HeroSection() {
+
+function HeroSection(props: HeroSectionProps) {
     return (
         <>
             <div className="bg-slate-800 text-white rounded-xl max-w-[600px] p-4 relative drop-shadow-lg">
@@ -35,7 +41,7 @@ function HeroSection() {
                             Welcome Back!
                         </div>
                         <div className='text-4xl pb-3'>
-                            SDRK Manavadhikar Foundation
+                            { props.ngoName || "SDRK Manavadhikar Foundation"}
                         </div>
                         <hr className='w-1/3 pb-3' />
                         <div>

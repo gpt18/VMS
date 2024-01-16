@@ -7,6 +7,12 @@ const mongoose = require('mongoose')
             trim: true,
             required: true,
         },
+        username: {
+            type: String,
+            trim: true,
+            unique: true,
+            required: true,
+        },
         email: {
             type: String, 
             required: true,

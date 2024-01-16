@@ -7,10 +7,11 @@ import { DashboardPage } from "../modules/admin/DashboardPage.js";
 import { VolunteerPage } from "../modules/admin/VolunteerPage.js";
 import { EventPage } from "../modules/admin/EventPage.js";
 import AddVolPage from "../modules/admin/AddVolPage.js";
-import PrintList, { PrintCurrent } from "../components/PrintList.js";
+import PrintList from "../components/PrintList.js";
 import Login from "../modules/global/Login.tsx";
 import { SignUp } from "../modules/global/Signup.tsx";
-import { Button } from "../components/Button.tsx";
+import { VolHomePage } from "../modules/volunteer/HomePage.tsx";
+import { UserProvider } from "../hooks/UserContext.tsx";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/ngo",
-    element: <AdminLayout/>,
+    element: <UserProvider><AdminLayout/></UserProvider>,
     children: [
       {
         path: "",
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
     ]
   },
   {
+    path: "/vol",
+    element: <VolHomePage />
+  },
+  {
     path: "/ngo-signup",
     element: <SignUp role={"ngo"}/>
   },
@@ -60,10 +65,6 @@ const router = createBrowserRouter([
   {
     path: "/printList",
     element: <PrintList />
-  },
-  {
-    path: "/print",
-    element: <PrintCurrent />
   },
   {
     path: "*",

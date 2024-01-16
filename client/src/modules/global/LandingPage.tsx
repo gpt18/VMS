@@ -24,7 +24,8 @@ export default function LandingPage() {
                 <h1 className={styles.highlight}>Drive Tommorow</h1>
                 <h1>Thrive Together</h1>
               </div>
-              <div className="flex gap-4 mt-10">
+              <div className='my-5 text-xl'>Join Us 🤝 </div>
+              <div className="flex gap-4 mt-5">
                 <div className='w-full'>
                   <Link to={"/ngo-signup"}>
                     <Button variant={'contained'} endIcon={<BsArrowRight />} className='w-full p-4'>For NGO</Button>

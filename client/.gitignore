@@ -30,3 +30,4 @@ README.md
 package-lock.json
 tsconfig.node.json
 .rest
+.env

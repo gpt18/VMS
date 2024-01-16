@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from '../assets/logo.svg';
 import { FiUser } from "react-icons/fi";
 import { strings } from "../utils/costants";
@@ -7,6 +7,13 @@ import { useSidebarContext } from "../hooks/SidebarContext";
 import { IconSelector } from "../utils/selector";
 
 export function PageHeader() {
+
+    const navigate = useNavigate();
+
+    function handleLogout(){
+        localStorage.clear();
+        navigate("/");
+    }
 
     return (
         <div className="flex gap-10 lg:gap-20 justify-between pt-2 mb-6 mx-4">
@@ -17,7 +24,7 @@ export function PageHeader() {
                 </div>
             </div> */}
             <div className="flex flex-row md:gap-2 flex-shrink-0 ">
-                <Button variant="ghost" size="icon">
+                <Button variant="ghost" size="icon" onClick={handleLogout}>
                     <FiUser />
                 </Button>
 
