@@ -8,4 +8,9 @@ export const url = {
     }
 }
 
+export enum Role {
+    NGO = "NGO",
+    VOLUNTEER = "VOLUNTEER",
+    ADMIN = "ADMIN",
+}
 

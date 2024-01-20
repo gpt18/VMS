@@ -4,9 +4,12 @@ const express = require('express');
 const cors = require('cors');
 const { readdirSync } = require('fs');
 const { connectToMongoDB } = require("./connections");
-const { restrictToNgo } = require("./middlewares/auth.middleware");
+const { restrictToNgo, addPayload } = require("./middlewares/auth.middleware");
+const { getNgoId } = require('./helpers/utilHelper');
 
 const app = express();
+
+
 
 //middleware
 app.use(express.json({limit: '5mb'}));
@@ -27,8 +30,9 @@ connectToMongoDB(process.env.DATABASE_URL)
 const authRoute = require("./routers/authRouter");
 const ngoRouter = require("./routers/ngoRouter");
 
+
 app.use("/api", authRoute);
-app.use("/api/ngo", restrictToNgo, ngoRouter);
+app.use("/api/ngo", addPayload, restrictToNgo, ngoRouter);
 
 app.get("*", (req, res) => res.send("Not Authorized!"));
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { TextField } from '../../components/TextField';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
@@ -13,9 +13,9 @@ const Login: React.FC = () => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [ok, setOk] = useState(false);
 
-  const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -23,13 +23,10 @@ const Login: React.FC = () => {
         username,
         password,
       });
-      setOk(data.status);
-      toast.success(`Success`);
 
-      if(data.status) {
-        localStorage.setItem("id", data.id);
-        localStorage.setItem("username", data.username);
-        localStorage.setItem("role", data.role);
+      toast.success(`Success`, {position: 'bottom-right'});
+
+      if(data.access_key) {
         localStorage.setItem("access_key", data.access_key);
 
         navigateBasedOnRole(data.role);
@@ -63,7 +60,7 @@ const Login: React.FC = () => {
           <Link to='' onClick={() => navigate(-1)}><Button variant={'text'} startIcon={<IconSelector.all.back />} className='px-0'>Go Back</Button></Link>
         </div>
         <h2 className="text-2xl font-bold mb-6">Login</h2>
-        <form className="space-y-4" method='post'>
+        <form className="space-y-4" method='post' onSubmit={handleLogin}>
           <div>
             <label htmlFor="username" className="block font-medium">
               Username
@@ -79,7 +76,6 @@ const Login: React.FC = () => {
           <button
             type="submit"
             className="w-full py-2 px-4 bg-indigo-500 text-white rounded-md hover:bg-indigo-600"
-            onClick={handleLogin}
           >
             Login
           </button>

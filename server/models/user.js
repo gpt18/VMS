@@ -27,8 +27,20 @@ const mongoose = require('mongoose')
         },
         role: {
             type: String,
+            enum: ["ngo", "volunteer"],
             default: 'volunteer',
             required: true,
+        },
+        current_login: {
+            type: Number,
+        },
+        last_login: {
+            type: Number,
+        },
+        profile_status: {
+            type: String,
+            enum: ["PENDING", "COMPLETED"],
+            default: "PENDING"
         },
         
     }, 

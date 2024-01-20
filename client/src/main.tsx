@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './global.scss'
-import { UserProvider } from './hooks/UserContext.tsx'
+import { UserProvider } from './hooks/NgoDataContext.tsx'
 
 
 

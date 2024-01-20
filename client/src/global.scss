@@ -78,26 +78,53 @@ body {
 
 // ----------- custom scrollbar ---------------
 
+// * {
+//   scrollbar-width: thin;
+  
+// }
+
+// *::-webkit-scrollbar {
+//   @apply bg-transparent w-1;
+// }
+
+
+// *::-webkit-scrollbar-thumb {
+//   @apply bg-secondary-dark rounded-full;
+// }
+
+
+// .scrollbar-hidden::-webkit-scrollbar-thumb {
+//   @apply bg-transparent;
+// }
+
+// .scrollbar-hidden:hover::-webkit-scrollbar-thumb {
+//   @apply bg-secondary-border;
+// }
+
+// ----------- custom scrollbar ---------------
+
 * {
   scrollbar-width: thin;
-  
+  scrollbar-color: theme('colors.secondary.dark') transparent;
 }
 
 *::-webkit-scrollbar {
-  @apply bg-transparent w-2;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: transparent;
 }
-
 
 *::-webkit-scrollbar-thumb {
-  @apply bg-secondary-dark rounded-full;
+  background-color: theme('colors.secondary.dark');
+  border-radius: theme('borderRadius.full');
+  border: 3px solid transparent;
+  background-clip: padding-box;
 }
 
-
 .scrollbar-hidden::-webkit-scrollbar-thumb {
-  @apply bg-transparent;
+  background-color: transparent;
 }
 
 .scrollbar-hidden:hover::-webkit-scrollbar-thumb {
-  @apply bg-secondary-border;
+  background-color: theme('colors.secondary.border');
 }
-

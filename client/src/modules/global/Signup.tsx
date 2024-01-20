@@ -26,7 +26,7 @@ function SignUp({ role }: signUpProps) {
     const [password, setPassword] = useState('');
     const [ok, setOk] = useState(false);
 
-    const handleSignup = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         // console.log(`${process.env.REACT_APP_API_URL}/register`)
 
@@ -56,7 +56,9 @@ function SignUp({ role }: signUpProps) {
                 </Link>
             </div>
             <div className="max-w-md w-full bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+               
                 <div className={ok ? "hidden" : ""}>
+                <form method="post" onSubmit={handleSignup}>
                     <div className='text-blue-700 flex gap-1 items-center py-4 hover:underline'>
                         <Link to='' onClick={() => navigate(-1)}><Button variant={'text'} startIcon={<IconSelector.all.back />} className='px-0'>Go Back</Button></Link>
                     </div>
@@ -72,6 +74,7 @@ function SignUp({ role }: signUpProps) {
                             placeholder="Enter your name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
+                            required
                         />
                     </div>
                     <div className="mb-4">
@@ -85,6 +88,7 @@ function SignUp({ role }: signUpProps) {
                             placeholder="Enter username"
                             value={username}
                             onChange={(e) => setUserName(e.target.value)}
+                            required
                         />
                     </div>
                     <div className="mb-4">
@@ -98,8 +102,9 @@ function SignUp({ role }: signUpProps) {
                             placeholder="Enter your email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            required
                         />
-                        <p>Role: <b className='uppercase'>{role}</b></p>
+                        
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
@@ -112,17 +117,18 @@ function SignUp({ role }: signUpProps) {
                             placeholder="Enter your password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            required
                         />
                     </div>
                     <div className="flex items-center justify-between">
                         <button
                             className="bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            type="button"
-                            onClick={handleSignup}
+                            type="submit"
                         >
                             Sign Up
                         </button>
                     </div>
+                </form>
                     <div className='py-4 text-sm text-neutral-500 text-center'>
                         Already registered?
                         <Link to={"/login"} className='text-indigo-700'> Login</Link>
@@ -131,7 +137,8 @@ function SignUp({ role }: signUpProps) {
 
                 <div className={`${ok ? "" : "hidden"} text-center`} >
                     <div className='p-4 text-2xl'>🎉 Registered Successfully!</div>
-                    <div className='p-4 text-2xl font-bold'>{name}</div>
+                    <div className='text-2xl'>{name}</div>
+                    <div className='text-2xl font-bold'>username: @{username}</div>
                     <div className='p-4 text-2xl'> Welcome onboard!</div>
                     <div className='text-xs text-gray-400 pb-4'>You can now login with your credentials</div>
                     <Link to="/login">

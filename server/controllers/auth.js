@@ -1,4 +1,4 @@
-const { hashPassword, comparePassword, getToken } = require('../helpers/authHelper');
+const { hashPassword, comparePassword, getToken, getJwtPayload, verifyToken } = require('../helpers/authHelper');
 const User = require('../models/user');
 
 const handleUserRegister = async (req, res) => {
@@ -17,13 +17,13 @@ const handleUserRegister = async (req, res) => {
     
 
     //check for existing username
-    const existingUsername = await User.findOne({ cleanUsername });
+    const existingUsername = await User.findOne({ username: cleanUsername });
     if(existingUsername) return res.status(400).send(`Username: ${cleanUsername} already taken!`);
 
 
     // check for existing user email
-    const existingUser = await User.findOne({ email });
-    if(existingUser) return res.status(400).send('This email is already registered');
+    const existingEmail = await User.findOne({ email });
+    if(existingEmail) return res.status(400).send('This email is already registered');
 
     // hash password
     const hashedPassword = await hashPassword(password);
@@ -59,19 +59,45 @@ async function handleUserLogin (req, res) {
     const correctPassword = await comparePassword(password, user.password);
     if(!correctPassword) return res.status(400).send("Wrong Password");
 
-    const token = getToken(user)
-    
+    const now = new Date();
+    const lastLogin = user.current_login;
+    user.current_login = now;
+    if(lastLogin) {
+        user.last_login = lastLogin;
+    }
+
+    try {
+        await user.save();
+    } catch (error) {
+        console.log('Login time updatation failed >>>', err);
+        return res.status(500).send("Semthing went wrong! login after some time");
+    }
+
+    const token = getToken(user);
+
     return res.status(200).json({
-        id: user._id,
-        username: user.username,
         role: user.role,
         access_key: token,
-        status: true,
     });
     
+}
+
+async function handlePermission(req, res) {
+    const authHeader = req.headers.authorization;
+    if(!authHeader) return res.status(401).json({msg: "Could not validate credentials", p: false});
+
+    const token = authHeader.split("Bearer ")[1];
+    const valid = verifyToken(token);
+    
+    if(!valid) return res.status(401).json({msg: "Could not validate credentials", p: false});
+
+    const jwtPayload = getJwtPayload(token);
+    
+    return res.status(200).json({msg: "Success", p: true, r: jwtPayload.role});
 }
 
 module.exports = {
     handleUserRegister,
     handleUserLogin,
+    handlePermission,
 }
