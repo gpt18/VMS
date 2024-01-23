@@ -1,6 +1,6 @@
 import { BsArchive, BsArrowRight, BsCalendar3, BsCreditCard2Front, BsPeople, BsPlusLg, BsSearch } from "react-icons/bs";
 import { FiGitPullRequest, FiHome, FiLogOut, FiUser } from "react-icons/fi";
-import { IoClose, IoMenu, IoRefresh } from "react-icons/io5";
+import { IoClose, IoCopyOutline, IoMenu, IoRefresh } from "react-icons/io5";
 import { RxDashboard } from "react-icons/rx";
 import { IoIosArrowBack } from "react-icons/io";
 
@@ -28,6 +28,7 @@ export const IconSelector = {
         arrowRight: BsArrowRight,
         reset: IoRefresh,
         back: IoIosArrowBack,
+        copy: IoCopyOutline,
     }
 
 

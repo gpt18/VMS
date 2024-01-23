@@ -1,4 +1,4 @@
-const User = require("../models/user");
+const User = require("../models/user.model");
 const httpStatus = require('http-status');
 
 async function handleGetUserDetails(req, res) {

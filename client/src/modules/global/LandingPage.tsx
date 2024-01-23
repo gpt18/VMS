@@ -10,7 +10,7 @@ import { Button } from '../../components/Button';
 export default function LandingPage() {
   return (
     <>
-      <section className={styles.hero} id="hero">
+      <section className={`min-h-screen ${styles.hero}`} id="hero">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap -mx-4">
             <div className="w-full lg:w-1/2 px-4">

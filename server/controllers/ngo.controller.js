@@ -1,7 +1,7 @@
 const httpStatus = require("http-status");
 const { getNgoID } = require("../helpers/utilHelper");
 const NGO = require("../models/ngo.model");
-const User = require("../models/user");
+const User = require("../models/user.model");
 
 async function handleGetNgoDetails(req, res) {
 

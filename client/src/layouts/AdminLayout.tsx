@@ -44,18 +44,70 @@ export function AdminLayout() {
         }
 
         checkStatus();
-    }, [])
+    }, []);
+
+    const {
+        userData,
+        ngoData,
+        setUserData,
+        setNgoData,
+    } = useNgoDataContext();
+
+    useEffect(() => {
+        const getUserDetails = async () => {
+            const { data } = await axios.get('/ngo/owner');
+
+            setUserData({
+                ...userData,
+                id: data.id,
+                username: data.username,
+                email: data.email,
+                role: data.role,
+                lastLogin: data.last_login,
+                name: data.name,
+            })
+        }
+
+
+
+        const getNgoDetails = async () => {
+            const { data } = await axios.get(`/ngo/details`);
+            const { _id: id, ngo_id, doc: { verified }, event_list, volunteer_associated, properties } = data.ngoDetail;
+            const { address, zone_city, state, website, sector, email, phone } = properties;
+
+            setNgoData({
+                ...ngoData,
+                id,
+                ngo_id,
+                address,
+                verified,
+                zone_city,
+                event_list,
+                volunteer_associated,
+                state,
+                website,
+                sector,
+                email,
+                phone,
+            });
+
+
+        }
+
+        getUserDetails();
+        getNgoDetails();
+    }, []);
 
     return (
 
 
         <SidebarProvider>
 
-            <div className="max-h-screen flex flex-col">
+            <div className="max-h-screen flex flex-col h-full">
                 <PageHeader />
-                <div className="sm:grid sm:grid-cols-[auto,1fr] sm:flex-grow-1 overflow-auto">
-                    <SideBar />
-                    <div className="overflow-x-clip">
+                <div className="sm:grid sm:grid-cols-[auto,1fr] gap-4 sm:flex-grow-1  h-full overflow-auto">
+                    <div><SideBar /></div>
+                    <div className="overflow-x-hidden">
                         <Outlet />
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 const { hashPassword, comparePassword, getToken, getJwtPayload, verifyToken } = require('../helpers/authHelper');
-const User = require('../models/user');
+const User = require('../models/user.model');
 
 const handleUserRegister = async (req, res) => {
     const { name, username, email, password, role} = req.body;

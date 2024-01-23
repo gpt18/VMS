@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "../../components/Button";
 import { IconSelector } from "../../utils/selector";
-import { TextField } from "../../components/TextField";
 import { Link } from "react-router-dom";
 
 const usersData = [
@@ -133,29 +132,25 @@ export function VolunteerPage() {
 
     return (
         <>
-            <div className="container mx-auto pb-80">
+            <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
 
-                <div className="mx-4 md:mx-14 pb-4">
-                    <div className="flex justify-between items-center mb-6">
-                        <div className="text-3xl sm:text-5xl flex gap-3 items-center">
-                            <IconSelector.menuIcon.volunteer />
-                            <div>
-                                Volunteer
-                            </div>
-                        </div>
+                <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <h2 className="text-2xl font-semibold text-black">
+                    <div className="flex items-center gap-2"><IconSelector.menuIcon.volunteer /> Volunteer</div>
+                    </h2>
+                    <Link to={"../vol/new"}><Button variant={"contained"} startIcon={<IconSelector.all.add />}>Add</Button></Link>
 
-                    </div>
+                </div>
 
-                    <div className="md:flex justify-between">
-                        <div className="md:w-3/6">
+                <div className="md:flex justify-between">
+                        <div className="md:w-1/2">
                             <SearchInput />
                         </div>
                         <div className="my-3 md:m-0 self-center">
-                            <Link to={"../vol/new"}><Button variant={"contained"} startIcon={<IconSelector.all.add />}>Add</Button></Link>
                         </div>
                     </div>
 
-                    <div className="mt-6 relative rounded-md border bg-slate-50">
+                    <div className="mt-6 rounded-md border bg-slate-50">
                         <div className="flex justify-between gap-2 p-4 bg-slate-800 text-white rounded-t-md sticky top-0 overflow-x-auto whitespace-nowrap scrollbar-hide">
                             <div className="px-3">
                                 Slno
@@ -184,8 +179,6 @@ export function VolunteerPage() {
                             {users.map((user, index) => <VolCard key={index} index={index} id={user.id} name={user.name} gender={user.gender} zone={user.zone} />)}
                         </div>
                     </div>
-
-                </div>
 
 
             </div>

@@ -4,6 +4,7 @@ import { Button } from "./Button";
 import { useSidebarContext } from "../hooks/SidebarContext";
 import { IconSelector } from "../utils/selector";
 import { useNgoDataContext } from "../hooks/NgoDataContext";
+import { toast } from "react-toastify";
 
 export function PageHeader() {
 
@@ -11,6 +12,7 @@ export function PageHeader() {
 
     function handleLogout(){
         localStorage.clear();
+        toast.info("Logout")
         navigate("/");
     }
 
@@ -46,9 +48,10 @@ export function PageHeaderFirstSection() {
             )}
         </Button>
         <Link to={"/ngo"}>
-            <div className="flex flex-row gap-2 font-bold">
-                <img src={ brandData.ngo_logo || logo } className="h-6 " />
-                {isSmallOpen ? <div className="overflow-ellipsis overflow-hidden whitespace-nowrap max-w-[50px]">{brandData.ngo_name}</div> : `${brandData.ngo_name}`}
+            <div className="flex flex-row gap-2 font-bold items-center">
+                <img src={ brandData.ngo_logo || logo } className="h-10 " />
+                {isSmallOpen ? <div className="overflow-ellipsis overflow-hidden whitespace-nowrap max-w-[50px]">{brandData.ngo_name}</div> : <div className="hidden sm:block">{brandData.ngo_name}</div>}
+                {!isSmallOpen && <div className="sm:hidden block">NGO Portal</div>}
             </div>
         </Link>
     </div>

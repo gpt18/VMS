@@ -15,6 +15,7 @@ import { NgoDataProvider } from "../hooks/NgoDataContext.tsx";
 import RegisterNgoProfile from "../modules/ngo/RegisterNgoProfile.tsx";
 import RestrictedRouteTo from "./permissionRouter.tsx";
 import { Role } from "../utils/costants.ts";
+import NgoProfile from "../modules/ngo/NgoProfile.tsx";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: "vol/new",
         element: <AddVolPage />
+      },
+      {
+        path: "profile",
+        element: <NgoProfile />
       },
     ]
   },

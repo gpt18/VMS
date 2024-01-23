@@ -34,7 +34,7 @@ const ngoRouter = require("./routers/ngoRouter");
 app.use("/api", authRoute);
 app.use("/api/ngo", addPayload, restrictToNgo, ngoRouter);
 
-app.get("*", (req, res) => res.send("Not Authorized!"));
+app.get("*", (req, res) => res.send(`<center><h1>404 Not Found</h1></center>`));
 
 
 app.listen(process.env.PORT, () => console.log(`server started at port ${process.env.PORT}`));
