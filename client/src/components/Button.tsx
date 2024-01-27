@@ -13,6 +13,7 @@ export const buttonStyles = cva(["transition-colors"], {
         outlined: ["text-primary border border-primary", "hover:bg-primary-hover hover:border-primary-dark-hover"],
         gray: ["bg-gray-300 hover:bg-gray-400 text-gray-800", "focus:ring-4 focus:outline-none focus:ring-secondary-hover"],
         chip: ["text-primary bg-primary-hover text-sm", "hover:bg-primary hover:text-primary-hover"],
+        disabled: ["bg-primary/50 text-white shadow"],
     },
     size: {
       default: ["rounded-lg", "py-2 px-4", "font-medium text-sm"],

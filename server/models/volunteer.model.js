@@ -1,13 +1,12 @@
-import { Schema, model } from 'mongoose'
+const mongoose = require('mongoose');
 
-const volSchema = new Schema({
+const volSchema = new mongoose.Schema({
     vol_id: {
         type: String,
         unique: true,
         required: true,
         index: true,
         trim: true,
-        lowercase: true,
     },
     properties: {
         name: {
@@ -100,7 +99,7 @@ const volSchema = new Schema({
     joined_ngo: [
         {
             ngo: {
-                type: Schema.Types.ObjectId,
+                type: mongoose.Schema.Types.ObjectId,
                 ref: 'ngos'
             },
             zone: {
@@ -116,8 +115,9 @@ const volSchema = new Schema({
     ],
     event_enroll: [
         {
+
             event: {
-                type: Schema.Types.ObjectId,
+                type: mongoose.Schema.Types.ObjectId,
                 ref: 'events'
             },
             status: {
@@ -129,4 +129,6 @@ const volSchema = new Schema({
     
 }, { timestamps: true })
 
-export default model('Volunteer', volSchema)
+const Volunteer = mongoose.model('volunteers', volSchema);
+
+module.exports = Volunteer;

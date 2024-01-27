@@ -26,15 +26,9 @@ export function AdminLayout() {
 
         const checkStatus = async () => {
             try {
-                // const token = localStorage.getItem("access_key");
-                // const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/ngo/register/status`, {
-                //     headers: {
-                //         Authorization: `Bearer ${token}`
-                //     }
-                // });
                 const { data } = await axios.get(`/ngo/register/status`);
                 
-                if(data.profile_status === "PENDING") return navigate("/ngo/register");
+                if(data.profile_status === "PENDING") return navigate("/ngo/register", {replace: true});
 
                 setBrandData({...brandData, ngo_name: data.ngo_name, ngo_logo: data.ngo_logo});
 

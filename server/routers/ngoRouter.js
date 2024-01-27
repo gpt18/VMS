@@ -1,8 +1,14 @@
 const express = require("express");
-const { handleGetNgoDetails, handleRegisterNewNgo, handleGetRegisterStatus } = require("../controllers/ngo.controller");
+const { handleGetNgoDetails, handleRegisterNewNgo, handleGetRegisterStatus, handleAddNewVolunteer, handleGetAllAssociatedVols } = require("../controllers/ngo.controller");
 const { handleGetUserDetails } = require("../controllers/user.controller");
 
 const router = express.Router();
+
+// app.use("/api/ngo", addPayload, restrictToNgo, ngoRouter); //reference
+
+router.get('/:id/volunteers', handleGetAllAssociatedVols);
+
+router.post('/vol/add', handleAddNewVolunteer);
 
 router.get("/details", handleGetNgoDetails);
 

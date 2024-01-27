@@ -1,184 +1,136 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../../components/Button";
 import { IconSelector } from "../../utils/selector";
 import { Link } from "react-router-dom";
-
-const usersData = [
-    {
-        id: "23001",
-        name: "John Simon",
-        photo: "",
-        zone: "khora",
-        gender: "male",
-        role: "volunteer"
-    },
-    {
-        id: "23002",
-        name: "Riya Sharma",
-        photo: "",
-        zone: "noida",
-        gender: "female",
-        role: "volunteer"
-    },
-    {
-        id: "23001",
-        name: "John Simon",
-        photo: "",
-        zone: "khora",
-        gender: "male",
-        role: "volunteer"
-    },
-    {
-        id: "23002",
-        name: "Riya Sharma",
-        photo: "",
-        zone: "noida",
-        gender: "female",
-        role: "volunteer"
-    },
-    {
-        id: "23001",
-        name: "John Simon",
-        photo: "",
-        zone: "khora",
-        gender: "male",
-        role: "volunteer"
-    },
-    {
-        id: "23002",
-        name: "Riya Sharma",
-        photo: "",
-        zone: "noida",
-        gender: "female",
-        role: "volunteer"
-    },
-    {
-        id: "23001",
-        name: "John Simon",
-        photo: "",
-        zone: "khora",
-        gender: "male",
-        role: "volunteer"
-    },
-    {
-        id: "23002",
-        name: "Riya Sharma",
-        photo: "",
-        zone: "noida",
-        gender: "female",
-        role: "volunteer"
-    },
-
-];
+import { useNgoDataContext } from "../../hooks/NgoDataContext";
+import axios from "axios";
 
 
-const photoFor = {
-    male: "https://thumbs.dreamstime.com/b/profile-picture-caucasian-male-employee-posing-office-happy-young-worker-look-camera-workplace-headshot-portrait-smiling-190186649.jpg",
-    female: "https://i.pinimg.com/236x/54/6b/2d/546b2d4e9bddbcb894fa8e416739339b.jpg"
-}
-
-interface UserType {
-    id: string,
-    name: string,
-    photo: string,
-    zone: string,
-    gender: string,
-    role: string,
-}
+type volunteerProps = {
+    email: string;
+    gender: string;
+    name: string;
+    phone: string;
+    photo: string;
+    status: string;
+    vol_id: string;
+    _id: string;
+};
 
 export function VolunteerPage() {
 
-    const [users, setUsers] = useState<UserType[]>([...usersData]);
 
-    const [newUser, setNewUser] = useState<UserType>({
-        id: '123',
-        name: '',
-        role: 'volunteer',
-        gender: 'male',
-        zone: '',
-        photo: '',
-    });
+    const { ngoData } = useNgoDataContext();
+    const [volunteers, setVolunteers] = useState<volunteerProps[]>([]);
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-
-        setNewUser((prev) => ({ ...prev, [name]: value }));
-
-    };
-
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-
-        setUsers((prev) => ([...prev, newUser]));
-
-        setNewUser({
-            ...newUser,
-            name: "",
-            zone: "",
-        })
-
-    }
-
-    function handleReset(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-
-        setNewUser({
-            ...newUser,
-            name: "",
-            zone: "",
-        })
-    }
+    useEffect(() => {
+        const getAllVolunteers = async () => {
+            if (ngoData.id) {
+                try {
+                    const response = await axios.get(`/ngo/${ngoData.id}/volunteers`);
+                    if (Array.isArray(response.data)) {
+                        setVolunteers(response.data);
+                    } else {
+                        console.error('API response is not an array');
+                    }
+                } catch (error) {
+                    console.error('Error fetching volunteers:', error);
+                }
+            }
+        };
+        getAllVolunteers();
+    }, [ngoData.id]);
 
 
     return (
         <>
             <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
 
-                <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex justify-between mb-6">
                     <h2 className="text-2xl font-semibold text-black">
-                    <div className="flex items-center gap-2"><IconSelector.menuIcon.volunteer /> Volunteer</div>
+                        <div className="flex items-center gap-2"><IconSelector.menuIcon.volunteer /> Volunteer</div>
                     </h2>
                     <Link to={"../vol/new"}><Button variant={"contained"} startIcon={<IconSelector.all.add />}>Add</Button></Link>
 
                 </div>
 
-                <div className="md:flex justify-between">
-                        <div className="md:w-1/2">
-                            <SearchInput />
-                        </div>
-                        <div className="my-3 md:m-0 self-center">
+                {/* <div className="md:flex justify-between my-4">
+                    <div className="md:w-1/2">
+                        <SearchInput />
+                    </div>
+                    <div className="my-3 md:m-0 self-center">
+                    </div>
+                </div> */}
+
+                <div className="flex flex-col">
+                    <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                                <table className="min-w-full divide-y divide-gray-200">
+                                    <thead className="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Photo
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                ID
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Name
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Email
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Phone
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Status
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="bg-white divide-y divide-gray-200">
+                                        {volunteers.length > 0 ? volunteers.map((volunteer) => (
+                                            <tr key={volunteer._id}>
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    <img src={
+                                                        volunteer.photo === '' ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                                                            : volunteer.photo
+                                                    } alt="photo" className="h-10 w-10 rounded-full" />
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    <div className="text-sm text-gray-900">{volunteer.vol_id}</div>
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    <div className="text-sm text-gray-900 capitalize">{volunteer.name}</div>
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    <div className="text-sm text-gray-500">{volunteer.email}</div>
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    <div className="text-sm text-gray-500">{volunteer.phone}</div>
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    <div className="text-sm text-gray-500 rounded-full bg-orange-50 border border-orange-200 text-center px-2 py-1">{volunteer.status}</div>
+                                                </td>
+                                            </tr>
+                                        ))
+                                            :
+                                            <tr>
+                                                <td colSpan={6} className="px-6 py-4">
+                                                    <div className="text-center">
+                                                        <h1 className="text-xl font-medium">No Volunteer</h1>
+                                                        <div className="text-sm text-gray-500">Click on + Add Button to add new volunteer into you organization.</div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-
-                    <div className="mt-6 rounded-md border bg-slate-50">
-                        <div className="flex justify-between gap-2 p-4 bg-slate-800 text-white rounded-t-md sticky top-0 overflow-x-auto whitespace-nowrap scrollbar-hide">
-                            <div className="px-3">
-                                Slno
-                            </div>
-                            <div className="px-3">
-                                Volunteer
-                            </div>
-                            <div className="px-3">
-                                Zone
-                            </div>
-                            <div className="px-3">
-                                Email
-                            </div>
-                            <div className="px-3">
-                                Phone
-                            </div>
-                            <div className="px-3">
-                                Address
-                            </div>
-                            <div className="px-3">
-                                Action
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col p-4 space-y-3 overflow-x-auto whitespace-nowrap scrollbar-hide">
-                            {users.map((user, index) => <VolCard key={index} index={index} id={user.id} name={user.name} gender={user.gender} zone={user.zone} />)}
-                        </div>
-                    </div>
+                </div>
 
 
             </div>
@@ -202,42 +154,5 @@ function SearchInput() {
             </form>
 
         </>
-    );
-}
-
-type VolCardProps = {
-    id: string,
-    name: string,
-    zone: string,
-    gender: string,
-    index: number,
-}
-
-function VolCard({ name, id, zone, gender, index }: VolCardProps) {
-    return (
-        <div className="flex min-w-fit justify-between gap-2 p-4 rounded-lg group/item hover:bg-neutral-100 bg-white items-center ring-1 ring-gray-950/10">
-            <div className="px-3">
-                {index + 1}
-            </div>
-
-            <div className="flex gap-2 rounded-lg bg-indigo-50 py-2 px-4 flex-shrink-0 cursor-pointer">
-                <img src={gender == "male" ? photoFor.male : photoFor.female} alt={gender} className="rounded-full w-12 h-12 bg-cover object-cover" />
-                <div className="flex flex-col grow">
-                    <div className="text-gray-600 text-xs">#{id}</div>
-                    <div className="text-gray-900 font-bold">{name}</div>
-
-                </div>
-            </div>
-
-            <div className="px-3">{zone}</div>
-            <div className="px-3">abc@gmail.com</div>
-            <div className="px-3">9354768011</div>
-            <div className="px-3">
-                <div className="text-xs text-gray-400">khora colony</div>
-                <div className="text-sm">Ghaziabad UP</div>
-            </div>
-
-            <Button className="group/view invisible group-hover/item:visible" variant={"chip"} size={"small-chip"} endIcon={<IconSelector.all.arrowRight />}>Edit</Button>
-        </div>
     );
 }

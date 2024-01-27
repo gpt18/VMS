@@ -75,7 +75,7 @@ export default function NgoProfile() {
                         </div>
                         <div>
                             <div className="text-gray-700 text-xs">Last Login</div>
-                            <div className="font-semibold">{Date(userData.lastLogin)}</div>
+                            <div className="font-semibold">{new Date(userData.lastLogin).toUTCString()}</div>
                         </div>
                     </div>
                 </div>

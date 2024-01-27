@@ -1,6 +1,6 @@
 
 import logo from '../../assets/logo.svg'
-import { ElementType, useEffect } from 'react';
+import { ElementType } from 'react';
 import { IconSelector } from '../../utils/selector';
 import { useNgoDataContext } from '../../hooks/NgoDataContext';
 
@@ -37,7 +37,7 @@ type HeroSectionProps = {
 
 function HeroSection(props: HeroSectionProps) {
     const date = new Date(props.login);
-    const dateString = date.toLocaleString();
+    const dateString = date.toUTCString();
     return (
         <>
             <div className="bg-slate-800 text-white rounded-xl max-w-fit p-4 relative drop-shadow-lg">
@@ -47,7 +47,7 @@ function HeroSection(props: HeroSectionProps) {
                     {props.login != "Invalid Date" ? "Welcome Back!" : "Welcome,"}
                 </div>
                 <div className='text-4xl pb-3'>
-                    {props.ngoName || "SDRK Manavadhikar Foundation"}
+                    {props.ngoName || "NGO"}
                 </div>
                 {props.login != "Invalid Date" && <><hr className='w-1/3 pb-3' />
                     <div>
