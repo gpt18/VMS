@@ -4,6 +4,7 @@ import { IconSelector } from "../../utils/selector";
 import { Link } from "react-router-dom";
 import { useNgoDataContext } from "../../hooks/NgoDataContext";
 import axios from "axios";
+import { icons } from "react-icons";
 
 
 type volunteerProps = {
@@ -87,6 +88,9 @@ export function VolunteerPage() {
                                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Status
                                             </th>
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Action
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody className="bg-white divide-y divide-gray-200">
@@ -99,7 +103,11 @@ export function VolunteerPage() {
                                                     } alt="photo" className="h-10 w-10 rounded-full" />
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className="text-sm text-gray-900">{volunteer.vol_id}</div>
+                                                    <div className="text-sm text-gray-900 hover:text-indigo-700 hover:underline">
+                                                        <Link to={`/ngo/vol/${volunteer._id}`}>
+                                                        {volunteer.vol_id}
+                                                        </Link>
+                                                    </div>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <div className="text-sm text-gray-900 capitalize">{volunteer.name}</div>
@@ -112,6 +120,13 @@ export function VolunteerPage() {
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <div className="text-sm text-gray-500 rounded-full bg-orange-50 border border-orange-200 text-center px-2 py-1">{volunteer.status}</div>
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    <div className="text-sm text-gray-500 flex gap-2">
+                                                        <Button variant={"ghost"} size={"icon"}><IconSelector.all.edit/></Button>
+                                                        <Button variant={"ghost"} size={"icon"} ><IconSelector.all.more/></Button>
+                                                        
+                                                    </div>
                                                 </td>
                                             </tr>
                                         ))

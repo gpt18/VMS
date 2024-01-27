@@ -8,7 +8,7 @@ export default function NgoProfile() {
             <div className="flex md:flex-row flex-col-reverse gap-4 p-4 md:p-6 bg-gray-200 rounded-md min-h-full">
                 <div className="flex-1">
                     <div className="text-2xl font-semibold mb-6">NGO Profile</div>
-                    <div className="rounded bg-white p-4 shadow-md space-y-10">
+                    <div className="rounded-xl bg-white p-4 shadow-md space-y-10">
                         <div className="flex md:gap-6 gap-4 items-center">
                             <div className="h-20 w-20">
                                 <img decoding="async" src={brandData.ngo_logo} alt="" className="" />
@@ -56,26 +56,26 @@ export default function NgoProfile() {
                 </div>
                 <div className="md:px-6">
                     <div className="text-2xl font-semibold mb-6">User Profile</div>
-                    <div className="rounded bg-white p-4 shadow-md space-y-4">
+                    <div className="rounded-xl bg-white p-4 shadow-md space-y-4">
                         <div>
                             <div className="text-xs font-semibold">User ID</div>
                             <div className="text-gray-500 text-sm inline-flex items-center">{userData.id} <IconSelector.all.copy/></div>
                         </div>
                         <div>
                             <div className="text-gray-700 text-xs">Username</div>
-                            <div className="font-semibold">@{userData.username}</div>
+                            <div className="font-medium">@{userData.username}</div>
                         </div>
                         <div>
                             <div className="text-gray-700 text-xs">Email</div>
-                            <div className="font-semibold">{userData.email}</div>
+                            <div className="font-medium">{userData.email}</div>
                         </div>
                         <div>
                             <div className="text-gray-700 text-xs">Role</div>
-                            <div className="font-semibold">{userData.role}</div>
+                            <div className="font-medium">{userData.role}</div>
                         </div>
                         <div>
                             <div className="text-gray-700 text-xs">Last Login</div>
-                            <div className="font-semibold">{new Date(userData.lastLogin).toUTCString()}</div>
+                            <div className="font-medium">{new Date(userData.lastLogin).toUTCString()}</div>
                         </div>
                     </div>
                 </div>

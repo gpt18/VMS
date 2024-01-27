@@ -5,23 +5,16 @@ const User = require("../models/user.model");
 const VOLUNTEER = require("../models/volunteer.model");
 const { default: mongoose } = require("mongoose");
 
+const handleGetOneVol = async (req, res) => {
+    try {
+        const vol = await VOLUNTEER.findById(req.params.id);
+        return res.status(httpStatus.OK).json(vol);
+    } catch (error) {
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({message: error.message});
+    }
+}
+
 const handleGetAllAssociatedVols = async (req, res) => {
-    // try { 
-    //     const { volunteer_associated } = await NGO.findOne({owner: req.user.id}).populate('volunteer_associated.volunteer');
-    //     const response = volunteer_associated.map(vol => ({
-    //         _id: vol.volunteer._id,
-    //         vol_id: vol.volunteer.vol_id,
-    //         status: vol.status,
-    //         name: `${vol.volunteer.properties.name.first} ${vol.volunteer.properties.name.last}`,
-    //         gender: vol.volunteer.properties.gender,
-    //         phone: vol.volunteer.properties.phone,
-    //         email: vol.volunteer.properties.email,
-    //         photo: vol.volunteer.properties.photo,
-    //     }));
-    //     return res.status(httpStatus.OK).json(response);
-    // } catch (err) {
-    //     return res.status(httpStatus[500]).json({ message: err.message });
-    // }
 
     try {
         const ngo = await NGO.findById( 
@@ -223,4 +216,5 @@ module.exports = {
     handleGetRegisterStatus,
     handleAddNewVolunteer,
     handleGetAllAssociatedVols,
+    handleGetOneVol,
 }

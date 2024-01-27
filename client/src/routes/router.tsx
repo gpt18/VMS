@@ -16,6 +16,7 @@ import RegisterNgoProfile from "../modules/ngo/RegisterNgoProfile.tsx";
 import RestrictedRouteTo from "./permissionRouter.tsx";
 import { Role } from "../utils/costants.ts";
 import NgoProfile from "../modules/ngo/NgoProfile.tsx";
+import VolnteerProfile from "../modules/ngo/VolProfile.tsx";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <NgoProfile />
+      },
+      {
+        path: "vol/:id",
+        element: <VolnteerProfile />
       },
     ]
   },
