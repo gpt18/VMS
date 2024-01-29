@@ -5,7 +5,7 @@ export default function NgoProfile() {
     const { brandData, ngoData, userData } = useNgoDataContext();
     return (
         <div className="md:pb-4 md:pe-4 h-full">
-            <div className="flex md:flex-row flex-col-reverse gap-4 p-4 md:p-6 bg-gray-200 rounded-md min-h-full">
+            <div className="flex md:flex-row flex-col-reverse gap-4 p-4 md:p-6 bg-gray-100 rounded-md min-h-full">
                 <div className="flex-1">
                     <div className="text-2xl font-semibold mb-6">NGO Profile</div>
                     <div className="rounded-xl bg-white p-4 shadow-md space-y-10">

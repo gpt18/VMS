@@ -101,30 +101,30 @@ body,
 //   @apply bg-secondary-border;
 // }
 
-// ----------- custom scrollbar ---------------
+// // ----------- custom scrollbar ---------------
 
-* {
-  scrollbar-width: thin;
-  scrollbar-color: theme('colors.secondary.dark') transparent;
-}
+// * {
+//   scrollbar-width: thin;
+//   scrollbar-color: theme('colors.secondary.dark') transparent;
+// }
 
-*::-webkit-scrollbar {
-  width: 0.5rem;
-  height: 0.5rem;
-  background-color: transparent;
-}
+// *::-webkit-scrollbar {
+//   width: 0.5rem;
+//   height: 0.5rem;
+//   background-color: transparent;
+// }
 
-*::-webkit-scrollbar-thumb {
-  background-color: theme('colors.secondary.dark');
-  border-radius: theme('borderRadius.full');
-  border: 3px solid transparent;
-  background-clip: padding-box;
-}
+// *::-webkit-scrollbar-thumb {
+//   background-color: theme('colors.secondary.dark');
+//   border-radius: theme('borderRadius.full');
+//   border: 3px solid transparent;
+//   background-clip: padding-box;
+// }
 
-.scrollbar-hidden::-webkit-scrollbar-thumb {
-  background-color: transparent;
-}
+// .scrollbar-hidden::-webkit-scrollbar-thumb {
+//   background-color: transparent;
+// }
 
-.scrollbar-hidden:hover::-webkit-scrollbar-thumb {
-  background-color: theme('colors.secondary.border');
-}
+// .scrollbar-hidden:hover::-webkit-scrollbar-thumb {
+//   background-color: theme('colors.secondary.border');
+// }

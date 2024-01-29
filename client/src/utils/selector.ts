@@ -1,6 +1,6 @@
-import { BsArchive, BsArrowRight, BsCalendar3, BsCreditCard2Front, BsPeople, BsPlusLg, BsSearch } from "react-icons/bs";
+import { BsArchive, BsArrowRight, BsCalendar3, BsCreditCard2Front, BsPeople, BsPlusLg, BsSearch, BsUpload } from "react-icons/bs";
 import { FiEdit, FiGitPullRequest, FiHome, FiLogOut, FiUser } from "react-icons/fi";
-import { IoClose, IoCopyOutline, IoMenu, IoRefresh } from "react-icons/io5";
+import { IoCameraOutline, IoClose, IoCopyOutline, IoMenu, IoQrCode, IoRefresh } from "react-icons/io5";
 import { RxDashboard } from "react-icons/rx";
 import { IoIosArrowBack, IoMdMore } from "react-icons/io";
 
@@ -31,6 +31,9 @@ export const IconSelector = {
         copy: IoCopyOutline,
         more: IoMdMore,
         edit: FiEdit,
+        qr: IoQrCode,
+        camera: IoCameraOutline,
+        upload: BsUpload,
     }
 
 

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useNgoDataContext } from "../../hooks/NgoDataContext";
 import axios from "axios";
 import { icons } from "react-icons";
+import { Img } from "../../utils/costants";
 
 
 type volunteerProps = {
@@ -45,7 +46,7 @@ export function VolunteerPage() {
 
     return (
         <>
-            <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+            <div className="mx-auto max-w-screen-2xl p-4 md:px-6 2xl:px-10">
 
                 <div className="flex justify-between mb-6">
                     <h2 className="text-2xl font-semibold text-black">
@@ -98,7 +99,7 @@ export function VolunteerPage() {
                                             <tr key={volunteer._id}>
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <img src={
-                                                        volunteer.photo === '' ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                                                        volunteer.photo === '' ? Img.profile_dummy
                                                             : volunteer.photo
                                                     } alt="photo" className="h-10 w-10 rounded-full" />
                                                 </td>
@@ -132,7 +133,7 @@ export function VolunteerPage() {
                                         ))
                                             :
                                             <tr>
-                                                <td colSpan={6} className="px-6 py-4">
+                                                <td colSpan={7} className="px-6 py-4">
                                                     <div className="text-center">
                                                         <h1 className="text-xl font-medium">No Volunteer</h1>
                                                         <div className="text-sm text-gray-500">Click on + Add Button to add new volunteer into you organization.</div>

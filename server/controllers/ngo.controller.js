@@ -117,8 +117,8 @@ async function handleAddNewVolunteer(req, res) {
 
         return res.status(200).send(id);
     } catch (error) {
-        console.error("error while hanling addNewVolunteer: ", error)
-        return res.status(500).send("Error. Try again.");
+        // console.error("error while hanling addNewVolunteer: ", error)
+        return res.status(500).send(error.message);
     }
 
 

@@ -17,7 +17,8 @@ export function PageHeader() {
     }
 
     return (
-        <div className="flex gap-10 lg:gap-20 justify-between pt-2 mb-6 mx-4">
+        <div className="bg-white">
+            <div className="flex gap-10 lg:gap-20 justify-between py-4 mx-4">
             <PageHeaderFirstSection />
             {/* <div className="md:flex hidden justify-center items-center flex-grow">
                 <div className="text-lg bg-gradient-to-l from-indigo-500 to-blue-500 rounded-md text-white px-2">
@@ -30,6 +31,7 @@ export function PageHeader() {
                 </Button>
 
             </div>
+        </div>
         </div>
     );
 }
