@@ -26,7 +26,7 @@ export function PageHeader() {
                 </div>
             </div> */}
             <div className="flex flex-row md:gap-2 flex-shrink-0 ">
-                <Button variant="ghost" size="icon" onClick={handleLogout}>
+                <Button variant="ghost" size="icon" onClick={handleLogout} title="logout">
                     <IconSelector.menuIcon.logout />
                 </Button>
 

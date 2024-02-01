@@ -1,4 +1,5 @@
 import { ReactNode, createContext, useContext, useState } from "react";
+import { strings } from "../utils/costants";
 
 type NgoBrandData = {
     ngo_name: string;
@@ -10,7 +11,7 @@ type NgoData = {
     ngo_id: string;
     address: string;
     verified: boolean;
-    zone_city: [];
+    zone_city: string[];
     event_list: [];
     volunteer_associated: [];
     state: string;

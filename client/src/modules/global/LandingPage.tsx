@@ -4,10 +4,18 @@ import { FaPeopleCarryBox } from 'react-icons/fa6';
 import { RiTeamFill, RiGlobalLine } from 'react-icons/ri'
 import imageGroup from "../../assets/img/group.png";
 import { Link } from 'react-router-dom';
-import styles from './pages_styles.module.scss'; // Import the generated CSS file
+import styles from './pages_styles.module.scss'; 
 import { Button } from '../../components/Button';
+import Model from '../../components/Modal';
+import { useState } from 'react';
+import { TextField } from '../../components/TextField';
 
 export default function LandingPage() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpenModel = () => setIsOpen(true);
+  const handleCloseModel = () => setIsOpen(false);
+
   return (
     <>
       <section className={`min-h-screen ${styles.hero}`} id="hero">
@@ -36,6 +44,20 @@ export default function LandingPage() {
                     <Button variant={'contained'} endIcon={<BsArrowRight />} className='w-full p-4'>For Volunteer</Button>
                   </Link>
                 </div>
+                <Button onClick={handleOpenModel}>Show Model</Button>
+                <Model isOpen={isOpen} onClose={handleCloseModel} title='Confirmation'>
+                  <div className='space-y-4 text-lg'>
+                  <p>Are you sure you want to exit?</p>
+                  <div>
+                  <p className='text-sm'>Enter code: <b>ARTLH</b></p>
+                  <span><TextField placeholder='XAYUL'/></span>
+                  </div>
+                  <div className='flex justify-end gap-4'>
+                    <Button>Cancel</Button>
+                    <Button className='bg-red-700 text-white'>Submit</Button>
+                  </div>
+                  </div>
+                </Model>
               </div>
             </div>
           </div>
