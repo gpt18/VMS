@@ -24,8 +24,8 @@ function MainHeader(props: mainHeaderProps) {
     return (
         <>
 
-            <div className="header">
-                <div className="container mx-auto flex items-center">
+            <div className="header ">
+                <div className="container mx-auto flex items-center ">
                     <Link to="/" className='flex gap-2 items-center p-4 flex-1'>
                         <img id="icon" className='w-10 h-10' src={props.icon} alt="logo" />
                         <div className="text-lg font-bold"> {appName} </div>

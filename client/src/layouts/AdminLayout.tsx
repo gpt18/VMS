@@ -97,7 +97,7 @@ export function AdminLayout() {
 
         <SidebarProvider>
 
-            <div className="max-h-screen flex flex-col h-full bg-gray-200">
+            <div className="max-h-screen flex flex-col h-full bg-gray-100">
                 <PageHeader />
                 <div className="sm:grid sm:grid-cols-[auto,1fr] gap-4 sm:flex-grow-1 pt-4 h-full overflow-auto">
                     <SideBar />

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../../components/Button";
 import { IconSelector } from "../../utils/selector";
 import { Link } from "react-router-dom";
 import { useNgoDataContext } from "../../hooks/NgoDataContext";
 import axios from "axios";
-import { icons } from "react-icons";
-import { Img } from "../../utils/costants";
+
+import UserProfileIcon from "../../components/UserProfileIcon";
 
 
 type volunteerProps = {
@@ -52,7 +52,12 @@ export function VolunteerPage() {
                     <h2 className="text-2xl font-semibold text-black">
                         <div className="flex items-center gap-2"><IconSelector.menuIcon.volunteer /> Volunteer</div>
                     </h2>
-                    <Link to={"../vol/new"}><Button variant={"contained"} startIcon={<IconSelector.all.add />}>Add</Button></Link>
+                    {
+                        volunteers.length > 0 
+                        &&
+                        <Link to={"../vol/new"}><Button variant={"contained"} startIcon={<IconSelector.all.add />}>Add</Button></Link>
+
+                    }
 
                 </div>
 
@@ -98,10 +103,7 @@ export function VolunteerPage() {
                                         {volunteers.length > 0 ? volunteers.map((volunteer) => (
                                             <tr key={volunteer._id}>
                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                    <img src={
-                                                        volunteer.photo === '' ? Img.profile_dummy
-                                                            : volunteer.photo
-                                                    } alt="photo" className="h-10 w-10 rounded-full" />
+                                                    <UserProfileIcon fullName={volunteer.name} photo={volunteer.photo}/>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <div className="text-sm text-gray-900 hover:text-indigo-700 hover:underline">
@@ -134,9 +136,10 @@ export function VolunteerPage() {
                                             :
                                             <tr>
                                                 <td colSpan={7} className="px-6 py-4">
-                                                    <div className="text-center">
+                                                    <div className="flex flex-col items-center">
                                                         <h1 className="text-xl font-medium">No Volunteer</h1>
                                                         <div className="text-sm text-gray-500">Click on + Add Button to add new volunteer into you organization.</div>
+                                                        <Link to={"../vol/new"} className="pt-10"><Button variant={"contained"} startIcon={<IconSelector.all.add />}>Add</Button></Link>
                                                     </div>
                                                 </td>
                                             </tr>

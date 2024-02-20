@@ -48,7 +48,8 @@ const Login: React.FC = () => {
 
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className='h-screen bg-gray-100'>
+      <div className="flex flex-col items-center justify-center h-full">
       <div className='p-4'>
         <Link to="/" className='flex gap-2 items-center p-4 flex-1'>
           <img id="icon" className='w-10 h-10' src={logo} alt="logo" />
@@ -85,6 +86,7 @@ const Login: React.FC = () => {
           <Link to={"/ngo-signup"} className='text-indigo-700'> NGO</Link> | <Link to={"/vol-signup"} className='text-indigo-700'>Volunteer</Link>
         </div>
       </div>
+    </div>
     </div>
   );
 };
