@@ -115,7 +115,7 @@ async function handleAddNewVolunteer(req, res) {
             }
         });
 
-        return res.status(200).send(id);
+        return res.status(200).json({"vid": id, "id": newVol._id});
     } catch (error) {
         // console.error("error while hanling addNewVolunteer: ", error)
         return res.status(500).send(error.message);
@@ -129,7 +129,7 @@ async function handleGetNgoDetails(req, res) {
     try {
         const ngoDetail = await NGO.findOne({ owner: req.user.id });
 
-        if (!ngoDetail) return res.state(httpStatus.NOT_FOUND).send("No any ngo registered by this user");
+        if (!ngoDetail) return res.status(httpStatus.NOT_FOUND).send("No any ngo registered by this user");
 
         const { } = ngoDetail;
 

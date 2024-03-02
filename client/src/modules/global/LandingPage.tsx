@@ -4,21 +4,15 @@ import { FaPeopleCarryBox } from 'react-icons/fa6';
 import { RiTeamFill, RiGlobalLine } from 'react-icons/ri'
 import imageGroup from "../../assets/img/group.png";
 import { Link } from 'react-router-dom';
-import styles from './pages_styles.module.scss'; 
+import styles from './pages_styles.module.scss';
 import { Button } from '../../components/Button';
-import Model from '../../components/Modal';
-import { useState } from 'react';
-import { TextField } from '../../components/TextField';
+
 
 export default function LandingPage() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleOpenModel = () => setIsOpen(true);
-  const handleCloseModel = () => setIsOpen(false);
 
   return (
     <>
-      <section className={`min-h-screen ${styles.hero}`} id="hero">
+      <section className={` ${styles.hero}`} id="hero">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap -mx-4">
             <div className="w-full lg:w-1/2 px-4">
@@ -44,20 +38,7 @@ export default function LandingPage() {
                     <Button variant={'contained'} endIcon={<BsArrowRight />} className='w-full p-4'>For Volunteer</Button>
                   </Link>
                 </div>
-                <Button onClick={handleOpenModel}>Show Model</Button>
-                <Model isOpen={isOpen} onClose={handleCloseModel} title='Confirmation'>
-                  <div className='space-y-4 text-lg'>
-                  <p>Are you sure you want to exit?</p>
-                  <div>
-                  <p className='text-sm'>Enter code: <b>ARTLH</b></p>
-                  <span><TextField placeholder='XAYUL'/></span>
-                  </div>
-                  <div className='flex justify-end gap-4'>
-                    <Button>Cancel</Button>
-                    <Button className='bg-red-700 text-white'>Submit</Button>
-                  </div>
-                  </div>
-                </Model>
+
               </div>
             </div>
           </div>
@@ -79,17 +60,28 @@ export default function LandingPage() {
       </section>
 
       <section className={styles.about} id="about">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 items-center justify-center flex flex-col">
           <div className={styles.heading}>About {strings.APP_NAME} </div>
-          <div className={styles.subtitle}>
-            {strings.APP_NAME} is a dedicated platform serving NGOs and volunteers alike by structuring and streamlining collaborations. By bridging the gap between humanitarian organizations and willing individuals, we maintain our commitment to improving and facilitating volunteerism.
-            <ul>
-              <li>{strings.APP_NAME} is built around the central ethos of promoting effective collaboration, enabling NGOs and volunteers to connect easily.</li>
-              <li>We provide a unique dashboard where volunteers can track their contributions and NGOs can measure the impact of their drives in real-time.</li>
-              <li>Our simplified system makes it easy to manage campaigns, events, and drives without any hassle.</li>
-              <li>Our simplified system makes it easy to manage campaigns, events, and drives without any hassle.</li>
-            </ul>
-            We exist to drive societal change through efficient and effective volunteer management. Choose {strings.APP_NAME} for a tool that's trusted by some of the world's leading NGOs.
+          <div className='md:max-w-2xl flex flex-wrap space-y-4'>
+            <div className='w-full rounded-md shadow-md bg-purple-100 p-4'>
+              {strings.APP_NAME} is a dedicated platform serving NGOs and volunteers alike by structuring and streamlining collaborations. By bridging the gap between humanitarian organizations and willing individuals, we maintain our commitment to improving and facilitating volunteerism.
+            </div>
+            <div className='flex gap-4'>
+              <div className='w-1/2 rounded-md shadow-md bg-purple-100 p-4'>
+                {strings.APP_NAME} is built around the central ethos of promoting effective collaboration, enabling NGOs and volunteers to connect easily.
+              </div>
+              <div className="w-1/2 rounded-md shadow-md bg-purple-100 p-4">
+                We provide a unique dashboard where volunteers can track their contributions and NGOs can measure the impact of their drives in real-time.
+              </div>
+            </div>
+            <div className='flex gap-4'>
+              <div className="w-1/2 rounded-md shadow-md bg-purple-100 p-4">
+                Our simplified system makes it easy to manage campaigns, events, and drives without any hassle.
+              </div>
+              <div className="w-1/2 rounded-md shadow-md bg-purple-100 p-4">
+                We exist to drive societal change through efficient and effective volunteer management. Choose {strings.APP_NAME} for a tool that's trusted by some of the world's leading NGOs.
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -107,7 +99,7 @@ function ServicesCard(props: ServicesCardProps) {
   return (
     <>
       <div className={styles.service__card}>
-        <div className={styles.icon}> {icon} </div>
+        <div className={`${styles.icon} flex items-center justify-center`}> {icon} </div>
         <div className={styles.card__heading}> {props.title} </div>
       </div>
     </>

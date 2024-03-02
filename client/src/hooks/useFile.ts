@@ -12,8 +12,11 @@ export const useFile = (initialState: any) => {
       reader.onloadend = () => {
         setData({
           ...data,
-          [e.target.name]: file,
-          ['preview'+e.target.name]: reader.result as string
+          [e.target.name]: {
+            file: file,
+            file_name: file.name,
+            preview: reader.result as string,
+          }
         });
       };
       reader.readAsDataURL(file);

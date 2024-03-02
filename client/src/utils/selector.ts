@@ -3,6 +3,8 @@ import { FiEdit, FiGitPullRequest, FiHome, FiLogOut, FiUser } from "react-icons/
 import { IoCameraOutline, IoClose, IoCopyOutline, IoMenu, IoQrCode, IoRefresh } from "react-icons/io5";
 import { RxDashboard } from "react-icons/rx";
 import { IoIosArrowBack, IoMdMore } from "react-icons/io";
+import { FcApproval, FcImageFile } from "react-icons/fc";
+import { RiDeleteBinLine } from "react-icons/ri";
 
 
 export const IconSelector = {
@@ -34,7 +36,12 @@ export const IconSelector = {
         qr: IoQrCode,
         camera: IoCameraOutline,
         upload: BsUpload,
+        approve: FcApproval,
+        delete: RiDeleteBinLine,
+        image: FcImageFile,
     }
+
+
 
 
 }

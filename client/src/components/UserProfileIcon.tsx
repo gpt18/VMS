@@ -12,9 +12,9 @@ const UserProfileIcon: React.FC<UserProfileIconProps> = ({ fullName, photo }) =>
 
   const getInitials = () => {
     if(fullName) {
-        let name  = fullName?.trim();
-        
-        if(name.length > 0) return `${name[0][0]}${name[1][0]}`.toUpperCase();
+        let n  = fullName?.trim();
+        const name = n.split(" ");
+        if(name.length > 1) return `${name[0][0]}${name[1][0]}`.toUpperCase();
         return fullName[0].toUpperCase();
     }else{
         return '!';
@@ -23,7 +23,9 @@ const UserProfileIcon: React.FC<UserProfileIconProps> = ({ fullName, photo }) =>
 
   return (
     <div className={`w-12 h-12 rounded-full overflow-hidden bg-${randomColor} flex items-center justify-center text-white text-lg`}>
-      <div className='hidden'>
+      {
+        false &&
+        <div className='hidden'>
         <div className={`bg-red-500`}></div>
         <div className={`bg-orange-500`}></div>
         <div className={`bg-indigo-500`}></div>
@@ -32,7 +34,8 @@ const UserProfileIcon: React.FC<UserProfileIconProps> = ({ fullName, photo }) =>
         <div className={`bg-indigo-500`}></div>
         <div className={`bg-green-500`}></div>
       </div>
-      {photo ? <img src={photo} alt="Profile" className="object-cover" /> : getInitials()}
+      }
+      {photo ? <img src={photo} alt="Profile_Photo" className="object-cover" /> : getInitials()}
     </div>
   );
 };

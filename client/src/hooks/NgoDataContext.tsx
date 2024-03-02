@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useContext, useState } from "react";
-import { strings } from "../utils/costants";
+
 
 type NgoBrandData = {
     ngo_name: string;
@@ -31,6 +31,15 @@ type UserData = {
 
 }
 
+type NewVolunteerData = {
+    steps: number;
+    user: {
+        id: string;
+        vid: string;
+        name: string;
+    }
+}
+
 
 type NgoDataProviderProps = {
     children: ReactNode;
@@ -43,6 +52,8 @@ type NgoDataContextProps = {
     setUserData: (userData: UserData) => void;
     ngoData: NgoData;
     setNgoData: (ngoData: NgoData) => void;
+    newVolData: NewVolunteerData;
+    setNewVolData: (newVolData: NewVolunteerData) => void;
 };
 
 const NgoDataContext = createContext<NgoDataContextProps | null>(null);
@@ -84,6 +95,15 @@ export function NgoDataProvider({ children }: NgoDataProviderProps) {
         sector: '',
         email: '',
         phone: '',
+    });
+
+    const [newVolData, setNewVolData] = useState<NewVolunteerData>({
+        steps: 0,
+        user: {
+            id: '',
+            vid: '',
+            name: '',
+        }
     })
 
     return (
@@ -94,6 +114,8 @@ export function NgoDataProvider({ children }: NgoDataProviderProps) {
             setUserData,
             ngoData,
             setNgoData,
+            newVolData,
+            setNewVolData,
         }}>
             {children}
         </NgoDataContext.Provider>

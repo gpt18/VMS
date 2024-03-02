@@ -7,7 +7,7 @@ async function getNgoID () {
 
     try{
         const count = await NGO.countDocuments({});
-        return `N${year}00${count+1}`;
+        return `${year}NGO00${count+1}`;
     }catch(err){
         console.log(err);
         return null;

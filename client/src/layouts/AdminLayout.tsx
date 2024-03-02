@@ -5,6 +5,9 @@ import { SidebarProvider } from "../hooks/SidebarContext";
 import { useEffect } from "react";
 import axios from "axios";
 import { useNgoDataContext } from "../hooks/NgoDataContext";
+import logo from '../assets/logo.svg';
+import { strings } from "../utils/costants";
+
 
 
 
@@ -12,7 +15,7 @@ export function AdminLayout() {
 
     const navigate = useNavigate();
     const { brandData, setBrandData } = useNgoDataContext();
-    
+
 
     useEffect(() => {
 
@@ -27,10 +30,10 @@ export function AdminLayout() {
         const checkStatus = async () => {
             try {
                 const { data } = await axios.get(`/ngo/register/status`);
-                
-                if(data.profile_status === "PENDING") return navigate("/ngo/register", {replace: true});
 
-                setBrandData({...brandData, ngo_name: data.ngo_name, ngo_logo: data.ngo_logo});
+                if (data.profile_status === "PENDING") return navigate("/ngo/register", { replace: true });
+
+                setBrandData({ ...brandData, ngo_name: data.ngo_name, ngo_logo: data.ngo_logo });
 
             } catch (error: any) {
                 console.log(error.response.data);
@@ -103,8 +106,14 @@ export function AdminLayout() {
                     <SideBar />
                     <div className="overflow-x-hidden">
                         <Outlet />
+                        <div className="py-20 flex justify-center items-center">
+                            <img id="icon" className='w-10 h-10' src={logo} alt="logo" />
+                            <div className="text-lg font-bold"> {strings.APP_NAME} </div>
+                        </div>
                     </div>
+
                 </div>
+
             </div>
 
         </SidebarProvider>

@@ -126,8 +126,8 @@ export function VolunteerPage() {
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <div className="text-sm text-gray-500 flex gap-2">
-                                                        <Button variant={"ghost"} size={"icon"}><IconSelector.all.edit/></Button>
-                                                        <Button variant={"ghost"} size={"icon"} ><IconSelector.all.more/></Button>
+                                                        <Button variant={"ghost"} size={"icon"} className="text-blue-500" title="Edit"><IconSelector.all.edit/></Button>
+                                                        <Button variant={"ghost"} size={"icon"} className="text-red-500" title="Delete"><IconSelector.all.delete/></Button>
                                                         
                                                     </div>
                                                 </td>

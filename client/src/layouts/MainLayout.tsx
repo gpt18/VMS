@@ -1,11 +1,12 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import  './layout_styles.scss'
-import Header from '../components/Header/Header';
+
 import { strings } from '../utils/costants';
 import logo from '../assets/logo.svg'
-import Footer from '../components/Footer/Footer';
+
 import MainHeader from '../components/MainHeader';
+import Footer from '../components/Footer';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/dist/js/bootstrap.bundle.min';
 
@@ -34,7 +35,7 @@ const MainLayout: React.FC = () => {
       <main className="main">
         <Outlet />
       </main>
-      <Footer/>
+      <Footer />
     </div>
     </div>
     </>

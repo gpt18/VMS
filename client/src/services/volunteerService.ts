@@ -12,3 +12,4 @@ export const uploadFile = async (file: any) => {
   const res = await axios.post('/ngo/upload', formData);
   return res;
 };
+
