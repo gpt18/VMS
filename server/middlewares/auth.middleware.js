@@ -16,15 +16,26 @@ function addPayload (req, res, next) {
 }
 
 function restrictToNgo (req, res, next){
+
     
     if(req.user.role != "ngo") return res.status(401).json({msg: "Not aurthorized"})
 
     next();
 }
 
+function restrictTo(roles) {
+    return (req, res, next) => {
+      if (!roles.includes(req.user.role)) {
+        return res.status(401).json({ msg: 'Not authorized' });
+      }
+  
+      next();
+    };
+  }
 
 
 module.exports = {
     restrictToNgo,
     addPayload,
+    restrictTo,
 }

@@ -14,7 +14,7 @@ export default {
           hover: colors.neutral[300],
           border: colors.neutral[400],
           text: colors.neutral[500],
-          dark: colors.neutral[800],
+          dark: colors.neutral[700],
           ["dark-hover"]: colors.neutral[900],
         },
         primary: {

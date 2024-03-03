@@ -4,7 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const { readdirSync } = require('fs');
 const { connectToMongoDB } = require("./connections");
-const { restrictToNgo, addPayload } = require("./middlewares/auth.middleware");
+const { restrictToNgo, addPayload, restrictTo } = require("./middlewares/auth.middleware");
 const { getNgoId } = require('./helpers/utilHelper');
 
 const app = express();
@@ -26,28 +26,14 @@ connectToMongoDB(process.env.DATABASE_URL)
 // readdirSync('./routers').map((r) => app.use('/api', require('./routers/' + r)));
 
 //routers 
-const authRoute = require("./routers/authRouter");
+const authRouter = require("./routers/authRouter");
 const ngoRouter = require("./routers/ngoRouter");
+const publicRouter = require('./routers/publicRouter');
 
 
-app.use("/api", authRoute);
-app.use("/api/ngo", addPayload, restrictToNgo, ngoRouter);
-
-const path = require('path');
-const fs = require('fs');
-
-app.get("/uploads/ngo/:file", (req, res) => {
-    const filePath = path.join(__dirname, 'uploads/ngo', req.params.file);
-
-    fs.access(filePath, fs.constants.F_OK, (err) => {
-        if (err) {
-            console.error('File does not exist');
-            return res.status(404).send('File not found');
-        } else {
-            return res.sendFile(filePath);
-        }
-    });
-});
+app.use("/api", authRouter);
+app.use("/api/ngo", addPayload, restrictTo(['ngo']), ngoRouter);
+app.use('/public', publicRouter);
 
 app.get("*", (req, res) => res.send(`<center><h1>404 Not Found</h1></center>`));
 

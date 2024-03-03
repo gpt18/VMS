@@ -9,7 +9,12 @@ export const addVolunteer = async (volunteer: any) => {
 export const uploadFile = async (file: any) => {
   const formData = new FormData();
   formData.append('file', file);
-  const res = await axios.post('/ngo/upload', formData);
+  const res = await axios.post(`/ngo/upload`, formData);
+  return res;
+};
+
+export const deleteFile = async (fileName: string) => {
+  const res = await axios.delete(`/ngo/file/${fileName}`);
   return res;
 };
 
