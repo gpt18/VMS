@@ -6,6 +6,7 @@ const { readdirSync } = require('fs');
 const { connectToMongoDB } = require("./connections");
 const { restrictToNgo, addPayload, restrictTo } = require("./middlewares/auth.middleware");
 const { getNgoId } = require('./helpers/utilHelper');
+const cloudinary = require('cloudinary').v2;
 
 const app = express();
 
@@ -21,6 +22,12 @@ connectToMongoDB(process.env.DATABASE_URL)
     .then(() => console.log("%>> Connected to DB!"))
     .catch((err) => console.log("%>> DB Error >>> ", err));
 
+//cloudinary       
+cloudinary.config({ 
+  cloud_name: process.env.CLOUD_NAME, 
+  api_key: process.env.CLOUD_API_KEY, 
+  api_secret: process.env.CLOUD_API_SECRET
+});
 
 //auto-load all routers
 // readdirSync('./routers').map((r) => app.use('/api', require('./routers/' + r)));

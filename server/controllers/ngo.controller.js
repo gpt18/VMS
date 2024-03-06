@@ -4,6 +4,7 @@ const NGO = require("../models/ngo.model");
 const User = require("../models/user.model");
 const VOLUNTEER = require("../models/volunteer.model");
 const { default: mongoose } = require("mongoose");
+const { uploadToCloudinary, deleteFile } = require("../helpers/fileHelper");
 
 const handleGetOneVol = async (req, res) => {
     try {
@@ -46,10 +47,9 @@ const handleGetAllAssociatedVols = async (req, res) => {
     }
 }
 
-async function handleAddNewVolunteer(req, res) {
+async function handleAddNewVolunteer (req, res) {
     const {
-        first_name,
-        last_name,
+        full_name,
         father_name,
         dob,
         gender,
@@ -59,20 +59,38 @@ async function handleAddNewVolunteer(req, res) {
         city,
         state,
         pincode,
-        photo,
-        aadharFront: aadhar_front,
-        aadharBack: aadhar_back,
         qualification,
         experience,
         zone,
         ngo,
     } = req.body;
 
-    const id = await getVolID();
+    let nameParts = full_name.trim();
+    nameParts = nameParts.split(" ");
+
+    const first_name = nameParts.shift();
+    const last_name = nameParts.join(" ");
+    
+    let profileImageUrl, aadharFrontImageUrl, aadharBackImageUrl;
+
+    if(req.files['profileImage']) {
+        profileImageUrl = await uploadToCloudinary(req.files['profileImage'][0]);
+        deleteFile(req.files['profileImage'][0].path);
+    }
+    if(req.files['aadharFrontImage']) {
+        aadharFrontImageUrl = await uploadToCloudinary(req.files['aadharFrontImage'][0]);
+        deleteFile(req.files['aadharFrontImage'][0].path);
+    }
+    if(req.files['aadharBackImage']) {
+        aadharBackImageUrl = await uploadToCloudinary(req.files['aadharBackImage'][0]);
+        deleteFile(req.files['aadharBackImage'][0].path);
+    }
+
+    const genId = await getVolID();
 
     try {
         const newVol = await VOLUNTEER.create({
-            vol_id: id,
+            vol_id: genId,
             properties: {
                 name: {
                     first: first_name,
@@ -91,10 +109,10 @@ async function handleAddNewVolunteer(req, res) {
                 },
                 experience: experience,
                 qualification: qualification,
-                photo: photo,
+                photo: profileImageUrl,
                 aadhar: {
-                    front: aadhar_front,
-                    back: aadhar_back
+                    front: aadharFrontImageUrl,
+                    back: aadharBackImageUrl
                 }
             },
             joined_ngo: [
@@ -115,10 +133,10 @@ async function handleAddNewVolunteer(req, res) {
             }
         });
 
-        return res.status(200).json({"vid": id, "id": newVol._id});
+        res.status(201).json({ message: 'Volunteer added successfully', id: newVol._id });
     } catch (error) {
-        // console.error("error while hanling addNewVolunteer: ", error)
-        return res.status(500).send(error.message);
+        console.error('Error adding volunteer:', error);
+        res.status(500).json({ error: 'Failed to add volunteer' });
     }
 
 

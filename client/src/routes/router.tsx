@@ -17,6 +17,7 @@ import RestrictedRouteTo from "./permissionRouter.tsx";
 import { Role } from "../utils/costants.ts";
 import NgoProfile from "../modules/ngo/NgoProfile.tsx";
 import VolnteerProfile from "../modules/ngo/VolProfile.tsx";
+import AddNewVolunteer from "../modules/ngo/AddNewVolunteer.tsx";
 
 const router = createBrowserRouter([
   {
@@ -61,7 +62,7 @@ const router = createBrowserRouter([
       },
       {
         path: "vol/new",
-        element: <AddVolPage />
+        element: <AddNewVolunteer />
       },
       {
         path: "profile",
