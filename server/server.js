@@ -44,9 +44,11 @@ app.use("/api/ngo", addPayload, restrictTo(['ngo']), ngoRouter);
 app.use('/public', publicRouter);
 
 app.post('/upload', upload.single('image'), (req, res) => {
+  const fileUrl = `${req.protocol}://${req.get('host')}/public/file/${req.file.filename}`
   return res.status(201).json({
     file: req.file.filename,
     filePath: req.file.path,
+    fileUrl,
     fileType: req.file.mimetype,
   });
 });
