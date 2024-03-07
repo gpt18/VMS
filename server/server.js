@@ -19,13 +19,13 @@ app.use(cors());
 
 //database connection
 connectToMongoDB(process.env.DATABASE_URL)
-    .then(() => console.log("%>> Connected to DB!"))
-    .catch((err) => console.log("%>> DB Error >>> ", err));
+  .then(() => console.log("%>> Connected to DB!"))
+  .catch((err) => console.log("%>> DB Error >>> ", err));
 
 //cloudinary       
-cloudinary.config({ 
-  cloud_name: process.env.CLOUD_NAME, 
-  api_key: process.env.CLOUD_API_KEY, 
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
   api_secret: process.env.CLOUD_API_SECRET
 });
 
@@ -36,11 +36,23 @@ cloudinary.config({
 const authRouter = require("./routers/authRouter");
 const ngoRouter = require("./routers/ngoRouter");
 const publicRouter = require('./routers/publicRouter');
+const { upload } = require('./middlewares/upload.middleware');
 
 
 app.use("/api", authRouter);
 app.use("/api/ngo", addPayload, restrictTo(['ngo']), ngoRouter);
 app.use('/public', publicRouter);
+
+app.post('/upload', upload.single('image'), (req, res) => {
+  return res.status(201).json({
+    file: req.file.filename,
+    filePath: req.file.path,
+    fileType: req.file.mimetype,
+  });
+});
+
+
+
 
 app.get("*", (req, res) => res.send(`<center><h1>404 Not Found</h1></center>`));
 

@@ -6,7 +6,6 @@ import { AdminLayout } from "../layouts/AdminLayout.js";
 import { DashboardPage } from "../modules/ngo/DashboardPage.js";
 import { VolunteerPage } from "../modules/ngo/VolunteerPage.js";
 import { EventPage } from "../modules/ngo/EventPage.js";
-import AddVolPage from "../modules/ngo/AddVolPage.js";
 import PrintList from "../components/PrintList.js";
 import Login from "../modules/global/Login.tsx";
 import { SignUp } from "../modules/global/Signup.tsx";
@@ -18,6 +17,7 @@ import { Role } from "../utils/costants.ts";
 import NgoProfile from "../modules/ngo/NgoProfile.tsx";
 import VolnteerProfile from "../modules/ngo/VolProfile.tsx";
 import AddNewVolunteer from "../modules/ngo/AddNewVolunteer.tsx";
+import { ImageUploader } from "../modules/global/ImageUpload.tsx";
 
 const router = createBrowserRouter([
   {
@@ -93,6 +93,10 @@ const router = createBrowserRouter([
   {
     path: "/printList",
     element: <PrintList />
+  },
+  {
+    path: '/upload',
+    element: <ImageUploader />
   },
   {
     path: "*",

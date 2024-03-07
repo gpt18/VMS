@@ -7,7 +7,14 @@ const customFileName = (req, file, cb) => {
     return cb(null, nanoid(4)+ '_' + now + path.extname(file.originalname));
 }
 
-const upload = multer({ dest: 'uploads/', filename: customFileName});
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => cb(null, 'uploads/'),
+    filename: customFileName
+});
+
+const upload =  multer({ storage });
+
+// const upload = multer({ dest: 'uploads/', filename: customFileName});
 
 module.exports = {
     upload,
