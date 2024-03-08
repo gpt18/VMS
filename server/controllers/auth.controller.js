@@ -1,5 +1,84 @@
 const { hashPassword, comparePassword, getToken, getJwtPayload, verifyToken } = require('../helpers/authHelper');
+const { generateVerificationToken } = require('../helpers/utilHelper');
 const User = require('../models/user.model');
+const nodemailer = require('nodemailer');
+
+const handleVerifyEmail = (req, res) => {
+    const pid = generateVerificationToken(6);
+    const token = req.query.token;
+
+    const isVerified = verifyToken(token);
+
+    if(isVerified) return res.send(`PID: ${pid}, Email Verified Sucessfully!`);
+    else return res.send(`PID: ${pid}, Token Expired!`)
+}
+
+const handleSendVerificationEmail = (req, res) => {
+  
+    const userEmail = req.query.email;
+    const tokenid = generateVerificationToken();
+    const token = getToken({
+        _id: tokenid,
+        username: userEmail,
+        role: 'email',
+    }, '5m');
+
+    const verificationLink = `${req.protocol}://${req.get('host')}/api/verify?token=${token}`;
+
+    const transporter = nodemailer.createTransport({
+        host: process.env.MAIL_CLIENT_INCOMING_SERVER_HOST, 
+        port: process.env.MAIL_CLIENT_SMTP_PORT, 
+        secure: process.env.MAIL_CLIENT_SSL, 
+        auth: {
+            user: process.env.MAIL_CLIENT_USER_EMAIL, 
+            pass: process.env.MAIL_CLIENT_PASSWORD 
+        }
+    });
+
+    const mailOptions = {
+        from: process.env.MAIL_CLIENT_USER_EMAIL,
+        to: userEmail,
+        subject: 'Email Verification - Voluntask',
+        html: `
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+</head>
+<body>
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <p style="color: #333;">Dear User,</p>
+        <p style="color: #333;">Please click the following link to verify your email:</p>
+        </br>
+        <p style="color: #007bff;"><a href="${verificationLink}" style="text-decoration: none; color: #007bff;">${verificationLink}</a></p>
+        </br>
+        <p style="color: #333;"><b>The verification link will expire in 5 minutes for security reasons.</b></p>
+        <p style="color: #333;">If you did not request this verification, you can safely ignore this email.</p>
+        </br>
+        </br>
+        <p style="color: #333;">Thank you,</p>
+        <p style="color: #333;">Voluntask</p>
+    </div>
+</body>
+</html>
+
+        `
+    };
+
+    // Send email
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log(error);
+            return res.status(500).send('Error sending email');
+        } else {
+            return res.send(`Verification email sent successfully with Key: ${tokenid}`);
+        }
+    });
+
+}
 
 const handleUserRegister = async (req, res) => {
     const { name, username, email, password, role} = req.body;
@@ -100,4 +179,6 @@ module.exports = {
     handleUserRegister,
     handleUserLogin,
     handlePermission,
+    handleSendVerificationEmail,
+    handleVerifyEmail,
 }

@@ -42,8 +42,8 @@ export const ImageUploader: React.FC = () => {
 
             setResponse(res.data);
 
-        } catch (error) {
-            console.error("Error while uploading image: ", error);
+        } catch (error: any) {
+            toast.error(error.message);
         } finally {
             setLoading(false);
         }
@@ -73,19 +73,23 @@ export const ImageUploader: React.FC = () => {
         <div className="flex flex-col items-center justify-center min-h-screen">
             <form onSubmit={handleUploadImage} className="flex flex-col space-y-6">
                 <input ref={inputFileRef} type="file" name="image" accept=".jpg, .png, .jpeg" onChange={handleImageChange} />
-                <Button type="submit" variant={"contained"}>
-                    {
-                        isLoading ?
-                            <BeatLoader color="#fff" size={10} /> :
-                            "Upload"
-                    }
-                </Button>
+                {
+                    imageFile ?
+                        <Button type="submit" variant={"contained"}>
+                            {
+                                isLoading ?
+                                    <BeatLoader color="#fff" size={10} /> :
+                                    "Upload"
+                            }
+                        </Button> :
+                        <Button type="submit" variant={"disabled"} disabled={!imageFile}>Upload</Button>
+                }
             </form>
-            {response.fileUrl && 
-            <div>
-                <div className="py-4 text-sm font-bold">🎉 Image Compressed and Uploaded Successfully!</div>
-                <img src={response.fileUrl} alt={response.file} className="max-h-sm max-w-sm" />
-            </div>
+            {response.fileUrl &&
+                <div>
+                    <div className="py-4 text-sm font-bold">🎉 Image Compressed and Uploaded Successfully!</div>
+                    <img src={response.fileUrl} alt={response.file} className="max-h-sm max-w-sm" />
+                </div>
             }
         </div>
     );

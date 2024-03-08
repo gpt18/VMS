@@ -28,7 +28,7 @@ const compressImage = async (file: File, maxSizeKB: number, crop: boolean = fals
                     canvas.toBlob((blob) => {
                         if (blob) {
                             const croppedFile = new File([blob], file.name, { type: 'image/jpeg' });
-                            console.log("A "+file.size+">>>>"+image.width +"...."+image.height);
+                            
                             resolve(croppedFile);
                         } else {
                             reject('Failed to create blob from canvas');
@@ -51,8 +51,6 @@ const compressImage = async (file: File, maxSizeKB: number, crop: boolean = fals
                 canvas.height = height;
 
                 context!.drawImage(image, 0, 0, width, height);
-
-                console.log("B "+file.size+">>>>"+image.width +"...."+image.height);
 
                 canvas.toBlob(async (blob) => {
                     if (blob) {

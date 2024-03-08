@@ -19,7 +19,7 @@ app.use(cors());
 
 //database connection
 connectToMongoDB(process.env.DATABASE_URL)
-  .then(() => console.log("%>> Connected to DB!"))
+  .then(() => console.log("MongoDB Connected Successfully!"))
   .catch((err) => console.log("%>> DB Error >>> ", err));
 
 //cloudinary       
@@ -59,4 +59,4 @@ app.post('/upload', upload.single('image'), (req, res) => {
 app.get("*", (req, res) => res.send(`<center><h1>404 Not Found</h1></center>`));
 
 
-app.listen(process.env.PORT, () => console.log(`server started at port ${process.env.PORT}`));
+app.listen(process.env.PORT, () => console.log(`Server Running... @PORT: ${process.env.PORT}`));

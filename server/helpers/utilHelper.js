@@ -1,5 +1,10 @@
 const NGO = require("../models/ngo.model");
-const VOLUNTEER = require('../models/volunteer.model')
+const VOLUNTEER = require('../models/volunteer.model');
+const { nanoid  } = require('nanoid');
+
+const generateVerificationToken = (length = 10) => {
+    return nanoid(length);
+}
 
 async function getNgoID () {
     const date = new Date();
@@ -32,4 +37,5 @@ async function getVolID () {
 module.exports = {
     getNgoID,
     getVolID,
+    generateVerificationToken,
 }

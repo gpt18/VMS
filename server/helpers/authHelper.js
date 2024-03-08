@@ -17,14 +17,14 @@ const comparePassword = (password, hashed) => {
     return bcrypt.compare(password, hashed);
 }
 
-function getToken(user) {
+function getToken(user, expiresIn = '1d') {
     const payload = {
         id: user._id,
         username: user.username,
         role: user.role,
     }
 
-    return jwt.sign(payload, process.env.SECRET, { expiresIn: '1d' });
+    return jwt.sign(payload, process.env.SECRET, { expiresIn });
 
 }
 
