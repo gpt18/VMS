@@ -14,7 +14,25 @@ const uploadToCloudinary = async (file) => {
     return result.secure_url;
 };
 
+const deleteFromCloudinary = async (secureUrls) => {
+    try {
+        if (!Array.isArray(secureUrls)) {
+            secureUrls = [secureUrls];
+        }
+       
+        for (let url of secureUrls) {
+           
+            let publicId = url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+            let response = await cloudinary.uploader.destroy(publicId);
+            
+        }
+    } catch (error) {
+        console.error('Failed to delete images:', error);
+    }
+};
+
 module.exports = {
     uploadToCloudinary,
     deleteFile,
+    deleteFromCloudinary
 }

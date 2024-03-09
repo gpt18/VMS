@@ -4,7 +4,8 @@ const NGO = require("../models/ngo.model");
 const User = require("../models/user.model");
 const VOLUNTEER = require("../models/volunteer.model");
 const { default: mongoose } = require("mongoose");
-const { uploadToCloudinary, deleteFile } = require("../helpers/fileHelper");
+const { uploadToCloudinary, deleteFile, deleteFromCloudinary } = require("../helpers/fileHelper");
+
 
 const handleGetOneVol = async (req, res) => {
     try {
@@ -135,6 +136,7 @@ async function handleAddNewVolunteer (req, res) {
 
         res.status(201).json({ message: 'Volunteer added successfully', id: newVol._id });
     } catch (error) {
+        deleteFromCloudinary([profileImageUrl, aadharBackImageUrl, aadharFrontImageUrl])
         console.error('Error adding volunteer:', error);
         res.status(500).json({ error: 'Failed to add volunteer' });
     }

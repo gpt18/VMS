@@ -1,9 +1,11 @@
 import { useRef, useState } from "react";
 import { Button } from "../../components/Button";
-import compressImage from "../../services/imageCompression";
+// import compressImage from "../../services/imageCompression";
 import axios from "axios";
 import { toast } from "react-toastify";
 import BeatLoader from "react-spinners/BeatLoader";
+import { compressImage } from 'gp-image-utils';
+ 
 
 export const ImageUploader: React.FC = () => {
     const inputFileRef = useRef<HTMLInputElement>(null);
@@ -61,6 +63,9 @@ export const ImageUploader: React.FC = () => {
         setImageFile(selectedFile);
 
         const compressedFile = await compressImage(selectedFile, 100);
+
+
+        // const compressedFile = await compressImage(selectedFile, 100, { crop: true });
 
         if (compressedFile) {
             setImageFile(compressedFile);

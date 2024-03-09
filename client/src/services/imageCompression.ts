@@ -4,7 +4,7 @@ const compressImage = async (file: File, maxSizeKB: number, crop: boolean = fals
 
     if (isNaN(maxSizeKB) || maxSizeKB <= 0) {
         console.error('Invalid size specified.');
-        return null;
+        return file;
     }
 
     return new Promise((resolve, reject) => {

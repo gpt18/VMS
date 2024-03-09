@@ -10,6 +10,7 @@ import { useFile } from "../../hooks/useFile";
 import { toast } from "react-toastify";
 import BeatLoader from "react-spinners/BeatLoader";
 import { useNavigate } from "react-router-dom";
+import compressImage from "../../services/imageCompression";
 
 const AddNewVolunteer: React.FC = () => {
     return (
@@ -73,7 +74,7 @@ const VolunteerDetailsForm: React.FC = () => {
         ngo: ngoData?.id || '',
     });
 
-    const { data: files, handleImageChange, setData: setFileData } = useFile(initialFileData);
+    const { data: files, setData: setFileData } = useFile(initialFileData);
 
     useEffect(() => {
         setVolunteer((prev: any) => ({
@@ -117,7 +118,29 @@ const VolunteerDetailsForm: React.FC = () => {
         if (!userResponse) {
             navigate(`/ngo/vol/${id}`, { replace: true });
         }
-      }
+    }
+
+    const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>, compress: boolean = false, crop: boolean = false) => {
+        const file = e.target.files?.[0];
+
+        if (file) {
+            let comp;
+            if(compress)  comp = await compressImage(file, 100, crop);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setFileData({
+                    ...files,
+                    [e.target.name]: {
+                        file: comp || file,
+                        file_name: file.name,
+                        preview: reader.result as string,
+                    }
+                });
+                
+            };
+            reader.readAsDataURL(comp || file);
+        }
+    };
 
     return (
         <section id="new-vol-form" className="container mx-auto max-w-lg mt-4 md:mt-6 p-4">
@@ -144,13 +167,13 @@ const VolunteerDetailsForm: React.FC = () => {
                         <div className='mb-4 relative'>
                             <label className='absolute right-0 text-xl text-white bg-black/40 rounded-full p-2 ring-1 ring-white cursor-pointer hover:bg-black/60'>
                                 {
-                                    
+
                                     !files.profileImage.file ?
                                         <>
                                             <IconSelector.all.camera />
-                                            <input type="file" accept='.jpg,.png' className="hidden" name="profileImage" onChange={handleImageChange} />
+                                            <input type="file" accept='.jpg,.png' className="hidden" name="profileImage" onChange={(e) => handleImageChange(e, true, true)} />
                                         </> :
-                                        <span onClick={() => setFileData((prev: any) => ({...prev, profileImage: initialFileData.profileImage}))}>
+                                        <span onClick={() => setFileData((prev: any) => ({ ...prev, profileImage: initialFileData.profileImage }))}>
                                             <IconSelector.menuIcon.close />
                                         </span>
                                 }
@@ -241,7 +264,7 @@ const VolunteerDetailsForm: React.FC = () => {
                                                     <img src={files.aadharFrontImage.preview || Img.aadhar_front} alt="" className="object-cover" />
                                                 </div>
                                             </div>
-                                            <input type="file" accept='.jpg,.png' className="hidden" name="aadharFrontImage" onChange={handleImageChange} />
+                                            <input type="file" accept='.jpg,.png' className="hidden" name="aadharFrontImage" onChange={(e) => handleImageChange(e, true)} />
                                         </label>
                                     </td>
                                     <td className="p-2 w-1/2">
@@ -251,7 +274,7 @@ const VolunteerDetailsForm: React.FC = () => {
                                                     <img src={files.aadharBackImage.preview || Img.aadhar_front} alt="" className="object-cover" />
                                                 </div>
                                             </div>
-                                            <input type="file" accept='.jpg,.png' className="hidden" name="aadharBackImage" onChange={handleImageChange} />
+                                            <input type="file" accept='.jpg,.png' className="hidden" name="aadharBackImage" onChange={(e) => handleImageChange(e, true)} />
                                         </label>
                                     </td>
 
