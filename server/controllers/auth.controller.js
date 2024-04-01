@@ -16,7 +16,7 @@ const handleVerifyEmail = (req, res) => {
 const handleSendVerificationEmail = (req, res) => {
   
     const userEmail = req.query.email;
-    const tokenid = generateVerificationToken();
+    const tokenid = generateVerificationToken(12);
     const token = getToken({
         _id: tokenid,
         username: userEmail,
@@ -36,7 +36,7 @@ const handleSendVerificationEmail = (req, res) => {
     });
 
     const mailOptions = {
-        from: process.env.MAIL_CLIENT_USER_EMAIL,
+        from: `Voluntask <${process.env.MAIL_CLIENT_USER_EMAIL}>`,
         to: userEmail,
         subject: 'Email Verification - Voluntask',
         html: `
@@ -68,13 +68,15 @@ const handleSendVerificationEmail = (req, res) => {
         `
     };
 
+    
+
     // Send email
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.log(error);
             return res.status(500).send('Error sending email');
         } else {
-            return res.send(`Verification email sent successfully with Key: ${tokenid}`);
+            return res.send(`Verification email sent successfully with Key: \n Reference key: ${tokenid.toUpperCase()}`);
         }
     });
 
